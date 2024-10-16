@@ -53,4 +53,4 @@ int ChargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[
     return ind;
 }
 
-int Recherche(int val)
+int Recherche(int val);
