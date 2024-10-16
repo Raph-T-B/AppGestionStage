@@ -1,5 +1,5 @@
 # SAE1.01_ALGO
-#Equipe :
+# Equipe :
 -Gabin FERRANDON
 -Dorian LEDEMAZEL
 -Raphael CAUMOND
