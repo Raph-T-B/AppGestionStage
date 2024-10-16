@@ -1,26 +1,34 @@
 #include"Sae1.h"
 
-int ChargementEtu(int Tab_Etu[], int Tab_RSta[],int Tab_Note[],int Tmax ){
-    int ind=0,Netu,RSta,Note;
+int ChargementEtu(int Tab_Etu[], int Tab_RSta[],float Tab_Note[],int Tmax ){
+    int ind=0,Netu,RSta,trouve,rech_ind;
+    float Note;
     FILE *flot;
     flot=fopen("Etudiant.don","r");
     if (flot==NULL)
+        printf("Problème d'ouverture du fichier Etudiant.don");
         return -1;
-    fscanf(flot,"%d%d%d",&Netu,&RSta,&Note);
+    fscanf(flot,"%d%d%f",&Netu,&RSta,&Note);
     while(!feof(flot)){
         if (ind==Tmax){
+            printf("PB : Nombre d'étudiant à gérer trop grand, le tableau est trop petit");
             fclose(flot);
             return -2;
         }
-        Recherche(...);
-        DecalerADroite(...);
-        DecalerADroite(...);
-        DecalerADroite(...);
-        Tab_Etu[ind]=Netu;
-        Tab_RSta[ind]=RSta;
-        Tab_Note[ind]=Note;
+        rech_ind=Recherche(Tab_Etu,ind,Netu,&trouve);
+        if (trouve==1){
+            printf("PB : Etudiant %d A plus d'une occurence",Netu);
+            fclose(flot);
+            return -2;
+        }
+        DecalerADroiteI(Tab_Etu,rech_ind,ind);
+        DecalerADroiteI(Tab_RSta,rech_ind,ind);
+        DecalerADroiteF(Tab_Note,rech_ind,ind);
+        Tab_Etu[rech_ind]=Netu;
+        Tab_RSta[rech_ind]=RSta;
+        Tab_Note[rech_ind]=Note;
         ind=ind+1;
-        fscanf(flot,"%d%d%d",&Netu,&RSta,&Note);
+        fscanf(flot,"%d%d%f",&Netu,&RSta,&Note);
     }
     fclose(flot);
     return ind;
@@ -53,7 +61,30 @@ int ChargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[
     return ind;
 }
 
-int Recherche(int val)
-/*j'ajoute du code*/
-yoyoyoyo
+int Recherche(int tab[],int taille,int val,int *trouve){
+    int ind=0;
+    for (ind=0;ind<taille;ind++){
+        if (tab[ind]>=val){
+            if (tab[ind]==val)
+                *trouve=1;
+            else *trouve=0;
+            return ind;
+        }
+    }
+    *trouve=0;
+    return taille;
+}
 
+int DecalerADroiteI(int tab[],int ind,int *tLog){
+    int i;
+    for (i=*tlog;i=ind;i--){
+        tab[i]=tab[i-1];
+    }
+}
+
+int DecalerADroiteF(float tab[],int ind,int *tLog){
+    int i;
+    for (i=*tlog;i=ind;i--){
+        tab[i]=tab[i-1];
+    }
+}
