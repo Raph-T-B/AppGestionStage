@@ -53,7 +53,20 @@ int ChargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[
     return ind;
 }
 
-int Recherche(int val)
-/*j'ajoute du code*/
-yoyoyoyo
-
+int Inserer(int Tab_Etu[],int Tab_RSta[],int Tab_Note,int val, int *Tlog,int Tmax,int RSta,int Note)
+{
+    int i=0,trouve;
+    i=rechercher(val,Tab_Etu,*Tlog,&trouve);
+    if(trouve==1)
+        return -1;
+    if(*Tlog==Tmax)
+        return -2;
+    DecalerADroiteI(Tab_Etu,i,*Tlog);
+    DecalerAdroiteI(Tab_RSta,i,*Tlog);
+    DecalerADroiteF(Tab_Note,i,*Tlog);
+    Tab_Etu[i] = val;
+    Tab_RSta[i]= RSta;
+    Tab_Note[i] = Note;
+    *Tlog = *Tlog +1;
+    return 0;
+}
