@@ -6,7 +6,7 @@ int ChargementEtu(int Tab_Etu[], int Tab_RSta[],float Tab_Note[],int Tmax ){
     FILE *flot;
     flot=fopen("Etudiant.don","r");
     if (flot==NULL)
-        printf("Problème d'ouverture du fichier Etudiant.don");
+        printf("Problème d'ouverture du fichier 'Etudiant.don'");
         return -1;
     fscanf(flot,"%d%d%f",&Netu,&RSta,&Note);
     while(!feof(flot)){
@@ -34,17 +34,27 @@ int ChargementEtu(int Tab_Etu[], int Tab_RSta[],float Tab_Note[],int Tmax ){
     return ind;
 }
 
-int ChargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[],int Tmax ){
+/// @brief Fonction servant à charger le fichier des Offres
+/// @param Tab_Ref : Tableau contenant les références de stage
+/// @param Tab_Dep : Tableau contenant les Départements des stages
+/// @param Tab_EtuAcc : Tableau contenant si un stage à accépté un étudiant
+/// @param Tab_NCand : Tableau contenant le nombre de candidature d'étudiants
+/// @param Tmax : Taille maximum des tableau
+/// @return -1 s'il y a un problème, la taille logique du tableau sinon
+int ChargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[],int Tmax){
     int ind=0,Ref,Dep,Etu_acc,nbr_cand;
     FILE *flot;
     flot=fopen("Stage.don","r");
-    if (flot==NULL)
+    if (flot==NULL){
+        printf("Problème d'ouverture du fichier 'Stage.don'");
         return -1;
+    }
     fscanf(flot,"%d%d",&Ref,&Dep);
     while(!feof(flot)){
         if (ind==Tmax){
             fclose(flot);
-            return -2;
+            printf("PB: Nombre d'offre à gérer trop grand, tableau trop petit");
+            return -1;
         }
         Tab_Ref[ind]=Ref;
         Tab_Dep[ind]=Dep;
@@ -61,24 +71,42 @@ int ChargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[
     return ind;
 }
 
-int Inserer(int Tab_Etu[],int Tab_RSta[],int Tab_Note,int val, int *Tlog,int Tmax,int RSta,int Note)
+/// @brief Fonction servant à insérer un nouvel étudiant
+/// @param Tab_Etu : Table contenant les étudiants
+/// @param Tab_RSta : Table contenant les références de stage
+/// @param Tab_Note : Table contenant les notes de fin de stage
+/// @param NEtu : Numéro de l'étudiant à ajouter
+/// @param Tlog : Taille logique des tables
+/// @param Tmax : Taille physique(max) des tables
+/// @return : -1 s'il y a un problème et 0 sinon
+int Inserer(int Tab_Etu[],int Tab_RSta[],int Tab_Note[],int NEtu, int *Tlog,int Tmax)
 {
     int i=0,trouve;
-    i=rechercher(val,Tab_Etu,*Tlog,&trouve);
-    if(trouve==1)
+    i=rechercher(NEtu,Tab_Etu,*Tlog,&trouve);
+    if(trouve==1){
+        printf("PB: Etudiant déjà existant");
         return -1;
-    if(*Tlog==Tmax)
-        return -2;
+    }
+    if(*Tlog==Tmax){
+        printf("PB: Tableau trop petit");
+        return -1;
+    }
     DecalerADroiteI(Tab_Etu,i,*Tlog);
     DecalerAdroiteI(Tab_RSta,i,*Tlog);
     DecalerADroiteF(Tab_Note,i,*Tlog);
-    Tab_Etu[i] = val;
-    Tab_RSta[i]= RSta;
-    Tab_Note[i] = Note;
+    Tab_Etu[i] = NEtu;
+    Tab_RSta[i]= -1;
+    Tab_Note[i] = -1;
     *Tlog = *Tlog +1;
     return 0;
 }
 
+/// @brief Recherche d'un variable dans un tableau d'entiers
+/// @param tab 
+/// @param taille 
+/// @param val 
+/// @param trouve 
+/// @return 
 int Recherche(int tab[],int taille,int val,int *trouve){
     int ind=0;
     for (ind=0;ind<taille;ind++){
@@ -95,14 +123,14 @@ int Recherche(int tab[],int taille,int val,int *trouve){
 
 int DecalerADroiteI(int tab[],int ind,int *tLog){
     int i;
-    for (i=*tlog;i=ind;i--){
+    for (i=*tLog;i=ind;i--){
         tab[i]=tab[i-1];
     }
 }
 
 int DecalerADroiteF(float tab[],int ind,int *tLog){
     int i;
-    for (i=*tlog;i=ind;i--){
+    for (i=*tLog;i=ind;i--){
         tab[i]=tab[i-1];
     }
 }
