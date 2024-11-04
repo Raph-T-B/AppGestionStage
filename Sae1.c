@@ -41,8 +41,8 @@ int chargementEtu(int Tab_Etu[], int Tab_RSta[],float Tab_Note[],int Tmax ){
 /// @param Tab_NCand : Tableau contenant le nombre de candidature d'étudiants
 /// @param Tmax : Taille maximum des tableau
 /// @return -1 s'il y a un problème, la taille logique du tableau sinon
-int chargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[],int Tmax){
-    int ind=0,Ref,Dep,Etu_acc,nbr_cand;
+int chargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[],int Tmax,int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[]){
+    int ind=0,Ref,Dep,Etu_acc,nbr_cand,num;
     FILE *flot;
     flot=fopen("Stage.don","r");
     if (flot==NULL){
@@ -61,9 +61,24 @@ int chargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[
         fscanf(flot,"%d",&Etu_acc);
         Tab_EtuAcc[ind]=Etu_acc;
         if (Etu_acc==0)
+        {
             fscanf(flot,"%d",&nbr_cand);
             Tab_NCand[ind]=nbr_cand;
-        
+            if(nbr_cand>0){   
+                fscanf(flot,"%d",&num);
+                Tab_Cand1[ind]= num;
+            }
+            if(nbr_cand>1)
+            {
+                fscanf(flot,"%d",&num);
+                Tab_Cand2[ind]= num;
+            }
+            if(nbr_cand>2)
+            {
+                fscanf(flot,"%d",num);
+                Tab_Cand3[ind]=num;
+            }
+        }
         ind=ind+1;
         fscanf(flot,"%d%d",&Ref,&Dep);
     }
