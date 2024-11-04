@@ -171,3 +171,47 @@ int decalerADroiteF(float tab[],int ind,int *tLog){
     }
 }
 
+void afficherStagesPourvus(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_Etu[], int Tlog) {
+    printf("Stages pourvus avec étudiants affectés :\n");
+    for (int i = 0; i < Tlog; i++) {
+        if (Tab_EtuAcc[i] == 1) {  
+            printf("Stage %d (Département %d) - Étudiant affecté : %d\n", Tab_Ref[i], Tab_Dep[i], Tab_Etu[i]);
+        }
+    }
+}
+
+void afficherStagesNonPourvus(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tlog) {
+    printf("Stages non pourvus :\n");
+    for (int i = 0; i < Tlog; i++) {
+        if (Tab_EtuAcc[i] == 0) {
+            printf("Stage %d (Département %d) - Non pourvu\n", Tab_Ref[i], Tab_Dep[i]);
+        }
+    }
+}
+
+void afficherEtudiantsSansStage(int Tab_Etu[], int Tab_RSta[], int Tlog) {
+    printf("Etudiants sans stages :\n");
+    for (int i = 0; i < Tlog; i++) {
+        if (Tab_RSta[i] == -1) {
+            printf("Étudiant %d - Pas de stage affecté\n", Tab_Etu[i]);
+        }
+    }
+}
+
+void afficherInfoStage(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_NCand[], int Tlog, int ref) {
+    int trouve = 0;
+    for (int i = 0; i < Tlog; i++) {
+        if (Tab_Ref[i] == ref) {
+            printf("Informations du stage %d :\n", ref);
+            printf("Département : %d\n", Tab_Dep[i]);
+            printf("Pourvu : %s\n", Tab_EtuAcc[i] == 1 ? "Oui" : "Non");
+            printf("Nombre de candidatures : %d\n", Tab_NCand[i]);
+            trouve = 1;
+            break;
+        }
+    }
+    if (!trouve) {
+        printf("Stage %d introuvable.\n", ref);
+    }
+}
+
