@@ -1,6 +1,6 @@
 #include"Sae1.h"
 
-int ChargementEtu(int Tab_Etu[], int Tab_RSta[],float Tab_Note[],int Tmax ){
+int chargementEtu(int Tab_Etu[], int Tab_RSta[],float Tab_Note[],int Tmax ){
     int ind=0,Netu,RSta,trouve,rech_ind;
     float Note;
     FILE *flot;
@@ -15,15 +15,15 @@ int ChargementEtu(int Tab_Etu[], int Tab_RSta[],float Tab_Note[],int Tmax ){
             fclose(flot);
             return -2;
         }
-        rech_ind=Recherche(Tab_Etu,ind,Netu,&trouve);
+        rech_ind=recherche(Tab_Etu,ind,Netu,&trouve);
         if (trouve==1){
             printf("PB : Etudiant %d A plus d'une occurence",Netu);
             fclose(flot);
             return -2;
         }
-        DecalerADroiteI(Tab_Etu,rech_ind,ind);
-        DecalerADroiteI(Tab_RSta,rech_ind,ind);
-        DecalerADroiteF(Tab_Note,rech_ind,ind);
+        decalerADroiteI(Tab_Etu,rech_ind,&ind);
+        decalerADroiteI(Tab_RSta,rech_ind,&ind);
+        decalerADroiteF(Tab_Note,rech_ind,&ind);
         Tab_Etu[rech_ind]=Netu;
         Tab_RSta[rech_ind]=RSta;
         Tab_Note[rech_ind]=Note;
@@ -41,7 +41,7 @@ int ChargementEtu(int Tab_Etu[], int Tab_RSta[],float Tab_Note[],int Tmax ){
 /// @param Tab_NCand : Tableau contenant le nombre de candidature d'étudiants
 /// @param Tmax : Taille maximum des tableau
 /// @return -1 s'il y a un problème, la taille logique du tableau sinon
-int ChargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[],int Tmax){
+int chargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[],int Tmax){
     int ind=0,Ref,Dep,Etu_acc,nbr_cand;
     FILE *flot;
     flot=fopen("Stage.don","r");
@@ -79,10 +79,10 @@ int ChargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[
 /// @param Tlog : Taille logique des tables
 /// @param Tmax : Taille physique(max) des tables
 /// @return : -1 s'il y a un problème et 0 sinon
-int Inserer(int Tab_Etu[],int Tab_RSta[],int Tab_Note[],int NEtu, int *Tlog,int Tmax)
+int inserer(int Tab_Etu[],int Tab_RSta[],float Tab_Note[],int NEtu, int *Tlog,int Tmax)
 {
     int i=0,trouve;
-    i=rechercher(NEtu,Tab_Etu,*Tlog,&trouve);
+    i=recherche(Tab_Etu,*Tlog,NEtu,&trouve);
     if(trouve==1){
         printf("PB: Etudiant déjà existant");
         return -1;
@@ -91,9 +91,9 @@ int Inserer(int Tab_Etu[],int Tab_RSta[],int Tab_Note[],int NEtu, int *Tlog,int 
         printf("PB: Tableau trop petit");
         return -1;
     }
-    DecalerADroiteI(Tab_Etu,i,*Tlog);
-    DecalerAdroiteI(Tab_RSta,i,*Tlog);
-    DecalerADroiteF(Tab_Note,i,*Tlog);
+    decalerADroiteI(Tab_Etu,i,Tlog);
+    decalerADroiteI(Tab_RSta,i,Tlog);
+    decalerADroiteF(Tab_Note,i,Tlog);
     Tab_Etu[i] = NEtu;
     Tab_RSta[i]= -1;
     Tab_Note[i] = -1;
@@ -107,7 +107,8 @@ int Inserer(int Tab_Etu[],int Tab_RSta[],int Tab_Note[],int NEtu, int *Tlog,int 
 /// @param val 
 /// @param trouve 
 /// @return 
-int Recherche(int tab[],int taille,int val,int *trouve){
+
+int recherche(int tab[],int taille,int val,int *trouve){
     int ind=0;
     for (ind=0;ind<taille;ind++){
         if (tab[ind]>=val){
@@ -121,14 +122,14 @@ int Recherche(int tab[],int taille,int val,int *trouve){
     return taille;
 }
 
-int DecalerADroiteI(int tab[],int ind,int *tLog){
+int decalerADroiteI(int tab[],int ind,int *tLog){
     int i;
     for (i=*tLog;i=ind;i--){
         tab[i]=tab[i-1];
     }
 }
 
-int DecalerADroiteF(float tab[],int ind,int *tLog){
+int decalerADroiteF(float tab[],int ind,int *tLog){
     int i;
     for (i=*tLog;i=ind;i--){
         tab[i]=tab[i-1];
