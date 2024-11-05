@@ -1,5 +1,11 @@
 #include"Sae1.h"
 
+/// @brief Fonction servant à charger le fichier des etudiants
+/// @param Tab_Etu : Tableau contenant les numéros etudiants
+/// @param Tab_RSta : Tableau contenant la référence de stage des etudiants
+/// @param Tab_Note : Tableau contenant les notes des etudiants
+/// @param Tmax : Taille max des tableaux
+/// @return : La taille logique des tableaux
 int chargementEtu(int Tab_Etu[], int Tab_RSta[],float Tab_Note[],int Tmax ){
     int ind=0,Netu,RSta,trouve,rech_ind;
     float Note;
@@ -35,10 +41,13 @@ int chargementEtu(int Tab_Etu[], int Tab_RSta[],float Tab_Note[],int Tmax ){
 }
 
 /// @brief Fonction servant à charger le fichier des Offres
-/// @param Tab_Ref : Tableau contenant les références de stage
+/// @param Tab_Ref : Tableau contenant les références des stages
 /// @param Tab_Dep : Tableau contenant les Départements des stages
-/// @param Tab_EtuAcc : Tableau contenant si un stage à accépté un étudiant
+/// @param Tab_EtuAcc : Tableau contenant si un stage a accépté un étudiant
 /// @param Tab_NCand : Tableau contenant le nombre de candidature d'étudiants
+/// @param Tab_Cand1 : Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand2 : Contient le deuxième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand3 : Contient le troisième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
 /// @param Tmax : Taille maximum des tableau
 /// @return -1 s'il y a un problème, la taille logique du tableau sinon
 int chargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[],int Tmax,int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[]){
@@ -117,12 +126,11 @@ int inserer(int Tab_Etu[],int Tab_RSta[],float Tab_Note[],int NEtu, int *Tlog,in
 }
 
 /// @brief Recherche d'un variable dans un tableau d'entiers
-/// @param tab 
-/// @param taille 
-/// @param val 
-/// @param trouve 
-/// @return 
-
+/// @param tab : Tableau dans lequel la recherche va être effectué
+/// @param taille : La taille logique du tableau
+/// @param val : la valeur à rechercher
+/// @param trouve : Pour savoir si la valeur est trouvé dans le tableau
+/// @return : l'indice où l'on va insérer la valeur
 int recherche(int tab[],int taille,int val,int *trouve){
     int ind=0;
     for (ind=0;ind<taille;ind++){
@@ -137,13 +145,25 @@ int recherche(int tab[],int taille,int val,int *trouve){
     return taille;
 }
 
-int decalerADroiteI(int tab[],int ind,int *tLog){
+/// @brief Décale le contenu du tableau d'entiers d'une case vers la droite
+/// @param tab : Tableau dans lequel le décalage va être effectué
+/// @param tailleM : taille max du tableau 
+/// @param ind : indice à partir duquel le tableau va être décalé
+/// @param tLog : taille logique du tableau
+/// @return : 0 si pas de problème, et -1 si la taille max du tableau est dépassé
+int decalerADroiteI(int tab[],int tailleM,int ind,int *tLog){
     int i;
     for (i=*tLog;i=ind;i--){
         tab[i]=tab[i-1];
     }
 }
 
+/// @brief Décale le contenu du tableau de float d'une case vers la droite
+/// @param tab : Tableau dans lequel le décalage va être effectué
+/// @param tailleM : taille max du tableau 
+/// @param ind : indice à partir duquel le tableau va être décalé
+/// @param tLog : taille logique du tableau
+/// @return : 0 si pas de problème, et -1 si la taille max du tableau est dépassé
 int decalerADroiteF(float tab[],int ind,int *tLog){
     int i;
     for (i=*tLog;i=ind;i--){
