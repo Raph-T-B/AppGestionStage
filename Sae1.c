@@ -27,9 +27,9 @@ int chargementEtu(int Tab_Etu[], int Tab_RSta[],float Tab_Note[],int Tmax ){
             fclose(flot);
             return -2;
         }
-        decalerADroiteI(Tab_Etu,rech_ind,&ind);
-        decalerADroiteI(Tab_RSta,rech_ind,&ind);
-        decalerADroiteF(Tab_Note,rech_ind,&ind);
+        decalerADroiteI(Tab_Etu,Tmax,rech_ind,&ind);
+        decalerADroiteI(Tab_RSta,Tmax,rech_ind,&ind);
+        decalerADroiteF(Tab_Note,Tmax,rech_ind,&ind);
         Tab_Etu[rech_ind]=Netu;
         Tab_RSta[rech_ind]=RSta;
         Tab_Note[rech_ind]=Note;
@@ -73,6 +73,9 @@ int chargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[
         {
             fscanf(flot,"%d",&nbr_cand);
             Tab_NCand[ind]=nbr_cand;
+<<<<<<< Updated upstream
+        
+=======
             if(nbr_cand>0){   
                 fscanf(flot,"%d",&num);
                 Tab_Cand1[ind]= num;
@@ -84,10 +87,11 @@ int chargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[
             }
             if(nbr_cand>2)
             {
-                fscanf(flot,"%d",num);
+                fscanf(flot,"%d",&num);
                 Tab_Cand3[ind]=num;
             }
         }
+>>>>>>> Stashed changes
         ind=ind+1;
         fscanf(flot,"%d%d",&Ref,&Dep);
     }
@@ -97,14 +101,13 @@ int chargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[
 
 /// @brief Fonction servant à insérer un nouvel étudiant
 /// @param Tab_Etu : Table contenant les étudiants
-/// @param Tab_RSta : Table contenant les références de stage
+/// @param Tab_RSta : Table contenant les références de stage pour les etudiants
 /// @param Tab_Note : Table contenant les notes de fin de stage
 /// @param NEtu : Numéro de l'étudiant à ajouter
 /// @param Tlog : Taille logique des tables
-/// @param Tmax : Taille physique(max) des tables
+/// @param Tmax : Taille physique(max) des tables (Tb_Etu Tab_Rsta Tab_Note)
 /// @return : -1 s'il y a un problème et 0 sinon
-int inserer(int Tab_Etu[],int Tab_RSta[],float Tab_Note[],int NEtu, int *Tlog,int Tmax)
-{
+int inserer_etu(int Tab_Etu[],int Tab_RSta[],float Tab_Note[],int NEtu, int *Tlog,int Tmax){
     int i=0,trouve;
     i=recherche(Tab_Etu,*Tlog,NEtu,&trouve);
     if(trouve==1){
@@ -115,9 +118,9 @@ int inserer(int Tab_Etu[],int Tab_RSta[],float Tab_Note[],int NEtu, int *Tlog,in
         printf("PB: Tableau trop petit");
         return -1;
     }
-    decalerADroiteI(Tab_Etu,i,Tlog);
-    decalerADroiteI(Tab_RSta,i,Tlog);
-    decalerADroiteF(Tab_Note,i,Tlog);
+    decalerADroiteI(Tab_Etu,Tmax,i,Tlog);
+    decalerADroiteI(Tab_RSta,Tmax,i,Tlog);
+    decalerADroiteF(Tab_Note,Tmax,i,Tlog);
     Tab_Etu[i] = NEtu;
     Tab_RSta[i]= -1;
     Tab_Note[i] = -1;
@@ -125,6 +128,7 @@ int inserer(int Tab_Etu[],int Tab_RSta[],float Tab_Note[],int NEtu, int *Tlog,in
     return 0;
 }
 
+<<<<<<< Updated upstream
 /// @brief Recherche d'un variable dans un tableau d'entiers
 /// @param tab : Tableau dans lequel la recherche va être effectué
 /// @param taille : La taille logique du tableau
@@ -153,9 +157,14 @@ int recherche(int tab[],int taille,int val,int *trouve){
 /// @return : 0 si pas de problème, et -1 si la taille max du tableau est dépassé
 int decalerADroiteI(int tab[],int tailleM,int ind,int *tLog){
     int i;
+    if (tailleM==*tLog){
+        printf("Problème de taille de tableau : trop petit");
+        return -1;
+    }
     for (i=*tLog;i=ind;i--){
         tab[i]=tab[i-1];
     }
+    return 0;
 }
 
 /// @brief Décale le contenu du tableau de float d'une case vers la droite
@@ -165,9 +174,23 @@ int decalerADroiteI(int tab[],int tailleM,int ind,int *tLog){
 /// @param tLog : taille logique du tableau
 /// @return : 0 si pas de problème, et -1 si la taille max du tableau est dépassé
 int decalerADroiteF(float tab[],int ind,int *tLog){
+=======
+/// @brief Décale le contenu du tableau de float d'une case vers la droite
+/// @param tab : Tableau dans lequel le décalage va être effectué
+/// @param tailleM : taille max du tableau 
+/// @param ind : indice à partir duquel le tableau va être décalé
+/// @param tLog : taille logique du tableau
+/// @return : 0 si pas de problème, et -1 si la taille max du tableau est dépassé
+int decalerADroiteF(float tab[],int tailleM,int ind,int *tLog){
+>>>>>>> Stashed changes
     int i;
+    if (tailleM==*tLog){
+        printf("Problème de taille de tableau : trop petit");
+        return -1;
+    }
     for (i=*tLog;i=ind;i--){
         tab[i]=tab[i-1];
     }
+    return 0;
 }
 
