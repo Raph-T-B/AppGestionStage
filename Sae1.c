@@ -73,9 +73,6 @@ int chargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[
         {
             fscanf(flot,"%d",&nbr_cand);
             Tab_NCand[ind]=nbr_cand;
-<<<<<<< Updated upstream
-        
-=======
             if(nbr_cand>0){   
                 fscanf(flot,"%d",&num);
                 Tab_Cand1[ind]= num;
@@ -91,7 +88,6 @@ int chargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[
                 Tab_Cand3[ind]=num;
             }
         }
->>>>>>> Stashed changes
         ind=ind+1;
         fscanf(flot,"%d%d",&Ref,&Dep);
     }
@@ -128,7 +124,6 @@ int inserer_etu(int Tab_Etu[],int Tab_RSta[],float Tab_Note[],int NEtu, int *Tlo
     return 0;
 }
 
-<<<<<<< Updated upstream
 /// @brief Recherche d'un variable dans un tableau d'entiers
 /// @param tab : Tableau dans lequel la recherche va être effectué
 /// @param taille : La taille logique du tableau
@@ -173,16 +168,7 @@ int decalerADroiteI(int tab[],int tailleM,int ind,int *tLog){
 /// @param ind : indice à partir duquel le tableau va être décalé
 /// @param tLog : taille logique du tableau
 /// @return : 0 si pas de problème, et -1 si la taille max du tableau est dépassé
-int decalerADroiteF(float tab[],int ind,int *tLog){
-=======
-/// @brief Décale le contenu du tableau de float d'une case vers la droite
-/// @param tab : Tableau dans lequel le décalage va être effectué
-/// @param tailleM : taille max du tableau 
-/// @param ind : indice à partir duquel le tableau va être décalé
-/// @param tLog : taille logique du tableau
-/// @return : 0 si pas de problème, et -1 si la taille max du tableau est dépassé
 int decalerADroiteF(float tab[],int tailleM,int ind,int *tLog){
->>>>>>> Stashed changes
     int i;
     if (tailleM==*tLog){
         printf("Problème de taille de tableau : trop petit");
