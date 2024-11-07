@@ -180,6 +180,12 @@ int decalerADroiteF(float tab[],int tailleM,int ind,int *tLog){
     return 0;
 }
 
+/// @brief Fonction d'affichage des stages pourvus
+/// @param Tab_Ref 
+/// @param Tab_Dep 
+/// @param Tab_EtuAcc 
+/// @param Tab_Etu 
+/// @param Tlog 
 void afficherStagesPourvus(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_Etu[], int Tlog) {
     printf("Stages pourvus avec étudiants affectés :\n");
     for (int i = 0; i < Tlog; i++) {
