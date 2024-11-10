@@ -180,12 +180,6 @@ int decalerADroiteF(float tab[],int tailleM,int ind,int *tLog){
     return 0;
 }
 
-/// @brief Fonction d'affichage des stages pourvus
-/// @param Tab_Ref 
-/// @param Tab_Dep 
-/// @param Tab_EtuAcc 
-/// @param Tab_Etu 
-/// @param Tlog 
 void afficherStagesPourvus(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_Etu[], int Tlog) {
     printf("Stages pourvus avec étudiants affectés :\n");
     for (int i = 0; i < Tlog; i++) {
@@ -230,4 +224,45 @@ void afficherInfoStage(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_N
     }
 }
 
+/// @brief Fonction de sauvegarde des tables Tab_Etu/Rsta/Note dans le fichier Etudiant.don
+/// @param Tab_Etu Table contenant les Numéros des étudiants
+/// @param Tab_RSta Table contenant les Références du stage où les étudiants ont été acceptés 
+/// @param Tab_Note Table contenant les Notes des etudiants reçue durant leur stage
+/// @param Tlog Taille logique de ces tableaux
+void sauvegardeEtu(int Tab_Etu[], int Tab_RSta[],float Tab_Note[],int Tlog){
+    int i=0;
+    FILE *flot;
+    flot=fopen("Etudiant.don","w");
+    for(i=0;i<Tlog;i++){
+        fprintf(flot,"%d    %.2f    %d\n",Tab_Etu[i],Tab_Note[i],Tab_RSta[i]);
+    }
+}
 
+/// @brief Fonction de sauvegarde des tables Tab_Ref/Dep/EtuAcc/NCand/Cand1/Cand2/Cand3 dans le fichier Stage.don
+/// @param Tab_Ref Tableau contenant les Références des stages
+/// @param Tab_Dep Tableau contenant les Départements des stages
+/// @param Tab_EtuAcc Tableau contenant si un stage a accépté un étudiant
+/// @param Tab_NCand Tableau contenant le nombre de candidature d'étudiants
+/// @param Tlog Taille logique de ces tableaux
+/// @param Tab_Cand1 Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand2 Contient le deuxième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand3 Contient le troisième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+void sauvegardeOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[],int Tlog,int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[]){
+    int i=0;
+    FILE *flot;
+    flot=fopen("Stage.don","w");
+    for(i=0;i<Tlog;i++){
+        fprintf(flot,"%d    %d\n",Tab_Ref[i],Tab_Dep[i]);
+        fprintf(flot,"%d\n",Tab_EtuAcc[i]);
+        if(Tab_EtuAcc[i]==0){
+            fprintf(flot,"%d\n",Tab_NCand[i]);
+            if (Tab_NCand[i]>0)
+                fprintf(flot,"%d\n",Tab_Cand1[i]);
+            if (Tab_NCand[i]>1)
+                fprintf(flot,"%d\n",Tab_Cand2[i]);
+            if (Tab_NCand[i]>2)
+                fprintf(flot,"%d\n",Tab_Cand3[i]);
+        }
+        
+    }
+}

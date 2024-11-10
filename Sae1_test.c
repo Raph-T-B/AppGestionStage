@@ -60,11 +60,32 @@ void testAfficherInfoStage(void)
     afficherInfoStage(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_NCand,Tlog,ref);
 }
 
+void testSauvegarderEtu(void){
+    int Tab_Etu[]={101,124,236,520};
+    float Tab_Note[]={-1,13.5,19.5,10};
+    int Tab_RSta[]={-1,2001,-1,5623};
+    int Tlog=4;
+    sauvegardeEtu(Tab_Etu,Tab_RSta,Tab_Note,Tlog);
+}
+void testSauvegarderOffre(void){
+    int Tab_Ref[]= {5008,2001,8000,5623,2388};
+    int Tab_Dep[]= {26,56,80,63,95};
+    int Tab_EtuAcc[]= {0,1,0,0,0};
+    int Tab_Ncand[]={0,0,1,2,3};
+    int Tab_Cand1[]={0,0,138,138,870};
+    int Tab_Cand2[]={0,0,0,637,94};
+    int Tab_Cand3[]={0,0,0,0,458};
+    int Tlog=5;
+    sauvegardeOffre(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_Ncand,Tlog,Tab_Cand1,Tab_Cand2,Tab_Cand3);
+}
 int main(void){
-    testRecherche();
+    /*testRecherche();
     testAfficherStagesPourvus();
     testAfficherStagesNonPourvus();
     testAfficherEtudiantsSansStage();
     testAfficherInfoStage();
+    testSauvegarderEtu();
+    testSauvegarderOffre();
+    */
     return 0;
 }
