@@ -129,7 +129,7 @@ int inserer_etu(int Tab_Etu[],int Tab_RSta[],float Tab_Note[],int NEtu, int *Tlo
 /// @param taille : La taille logique du tableau
 /// @param val : la valeur à rechercher
 /// @param trouve : Pour savoir si la valeur est trouvé dans le tableau
-/// @return : l'indice où l'on va insérer la valeur
+/// @return : l'indice où l'on va insérer la valeur (1 si trouvé, 0 sinon)
 int recherche(int tab[],int taille,int val,int *trouve){
     int ind=0;
     for (ind=0;ind<taille;ind++){
@@ -222,6 +222,44 @@ void afficherInfoStage(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_N
     if (!trouve) {
         printf("Stage %d introuvable.\n", ref);
     }
+}
+
+/// @brief Fonction pour ajouter une note à un étudiant
+/// @param Tab_Etu : Tableau contenant les numéros etudiants
+/// @param Tab_Note : Tableau contenant les notes des etudiants
+/// @param Tlog : Taille logique du tableau
+/// @return : -1 si le programme a été arrété, 0 s'il a fontionné
+int ajoutNote(int Tab_Etu[],float Tab_Note[],int Tlog){
+    int i=0,numEtu,ind,trouve,verif=0;
+    float noteE,noteR,noteS,noteG;
+    printf("A quel numéro d'étudiant voulez vous ajouter une note ? (-1 pour quitter) : ");
+    scanf("%d",&numEtu);
+    ind=recherche(Tab_Etu,Tlog,numEtu,&trouve);
+    while(trouve==0){
+        if(numEtu==-1) 
+            return -1;
+        printf("L'étudiant n'existe pas ! (-1 pour quitter) Veuillez réessayer : ");
+        scanf("%d",&numEtu);
+        ind=recherche(Tab_Etu,Tlog,numEtu,&trouve);
+    }
+    while(verif!=1){
+        if(verif==-1)
+            return -1;
+        printf("Quelle est la note de l'entreprise ? : ");
+        scanf("%f",&noteE);
+        printf("Quelle est la note du rapport ? : ");
+        scanf("%f",&noteR);
+        printf("Quelle est la note soutenance ? : ");
+        scanf("%f",&noteS);
+        noteG=(noteE*2+noteR+noteS)/4;
+        printf("\n");
+        printf("Notes: entreprise:%.2f rapport:%.2f soutenance:%.2f Globale:%.2f\n",noteE,noteR,noteS,noteG);
+        printf("\n");
+        printf("Êtes vous sûr de vouloir ajouter la note globale de %.2f à l'élève numéro %d (1 pour oui,-1 pour quitter,autre nombre pour retaper les notes) : ",noteG,numEtu);
+        scanf("%d",&verif);
+    }
+    Tab_Note[ind]=noteG;
+    return 0;
 }
 
 /// @brief Fonction de sauvegarde des tables Tab_Etu/Rsta/Note dans le fichier Etudiant.don

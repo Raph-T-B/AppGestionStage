@@ -1,6 +1,5 @@
 #include"Sae1.h"
 
-
 void testRecherche(void){
     int tab[20]={3,7,10,29,33},taille=5,val=8,trouve,indice;
     indice=recherche(tab,taille,val,&trouve);
@@ -29,8 +28,6 @@ void testAfficherStagesPourvus(void)
     afficherStagesPourvus(Tab_Ref,Tab_Dep,Tab_EtuAcc, Tab_Etu, Tlog);
 }
 
-
-
 void testAfficherStagesNonPourvus(void)
 {
     int Tab_Ref[]={5008,2001,8000,5623};
@@ -48,7 +45,6 @@ void testAfficherEtudiantsSansStage(void)
     afficherEtudiantsSansStage(Tab_Etu,Tab_RSta, Tlog);
 }
 
-
 void testAfficherInfoStage(void)
 {
     int Tab_Ref[]={5008,2001,8000,5623};
@@ -60,6 +56,31 @@ void testAfficherInfoStage(void)
     afficherInfoStage(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_NCand,Tlog,ref);
 }
 
+void testajout(void){
+    int Tab_Etu[]={2834,4933,4384,2368,1839};
+    float Tab_Note[]={-1,-1,-1,-1,-1};
+    int cont=0,sort=0,i=0;
+    for(i=0;i<5;i++)
+        printf("etu : %d note : %.2f\n",Tab_Etu[i],Tab_Note[i]);
+    printf("############### Possibilité d'exécuter une batterire de test ###############\n");
+    printf("\n");
+    while(cont!=-1){
+        sort=ajoutNote(Tab_Etu,Tab_Note,5);
+        if (sort==-1)
+            printf("Vous êtes bien sortis de la fonction\n");
+        if (sort==0)
+            printf("La fonction a bien fonctionné ! Affichage du nouveau tableau : \n");
+        printf("\n");
+        for(i=0;i<5;i++)
+            printf("etu : %d note : %.2f\n",Tab_Etu[i],Tab_Note[i]);
+        printf("\n");
+        printf("Voulez vous continuer à tester ? : (-1 pour non 0 pour oui) : ");
+        scanf("%d",&cont);
+    }
+    printf("\n");
+    printf("Fin test ajout\n");
+}
+
 void testSauvegarderEtu(void){
     int Tab_Etu[]={101,124,236,520};
     float Tab_Note[]={-1,13.5,19.5,10};
@@ -67,6 +88,7 @@ void testSauvegarderEtu(void){
     int Tlog=4;
     sauvegardeEtu(Tab_Etu,Tab_RSta,Tab_Note,Tlog);
 }
+
 void testSauvegarderOffre(void){
     int Tab_Ref[]= {5008,2001,8000,5623,2388};
     int Tab_Dep[]= {26,56,80,63,95};
@@ -78,6 +100,9 @@ void testSauvegarderOffre(void){
     int Tlog=5;
     sauvegardeOffre(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_Ncand,Tlog,Tab_Cand1,Tab_Cand2,Tab_Cand3);
 }
+
+
+
 int main(void){
     /*testRecherche();
     testAfficherStagesPourvus();
@@ -86,6 +111,7 @@ int main(void){
     testAfficherInfoStage();
     testSauvegarderEtu();
     testSauvegarderOffre();
+    testajout();
     */
     return 0;
 }
