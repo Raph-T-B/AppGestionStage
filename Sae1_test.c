@@ -1,5 +1,80 @@
 #include"Sae1.h"
 
+void test_decalageD_Float(void){
+    printf("test affichage decalage tableau float\n");
+    float tab[6]={12.5,18,9.5};
+    int taille=3,i=0,tmax=6,pb;
+    printf("affichage tableau de taille max 6\n");
+    for(i=0;i<taille;i++)
+        printf("%.2f    ",tab[i]);
+    printf("\n\n");
+    printf("décalage élément indice 0\n");
+    pb=decalerADroiteF(tab,tmax,0,&taille);
+    tab[0]=1;
+    taille=taille+1;
+    printf("affichage tableau\n");
+    for(i=0;i<taille;i++)
+        printf("%.2f    ",tab[i]);
+    printf("\n\n");
+    printf("décalage élément indice 2\n");
+    pb=decalerADroiteF(tab,tmax,2,&taille);
+    tab[2]=2;
+    taille=taille+1;
+    printf("affichage tableau\n");
+    for(i=0;i<taille;i++)
+        printf("%.2f    ",tab[i]);
+    printf("\n\n");
+    printf("décalage élément indice 5\n");
+    pb=decalerADroiteF(tab,tmax,5,&taille);
+    tab[5]=3;
+    taille=taille+1;
+    printf("affichage tableau\n");
+    for(i=0;i<taille;i++)
+        printf("%.2f    ",tab[i]);
+    printf("\n\n");
+    printf("décalage élément indice 2\n");
+    pb=decalerADroiteF(tab,tmax,2,&taille);
+    printf("\n");
+}
+
+void test_decalageD_Int(void){
+    printf("\n\n");
+    printf("test affichage decalage tableau entier\n");
+    int tab[6]={12,18,9};
+    int taille=3,i=0,tmax=6,pb;
+    printf("affichage tableau de taille max 6\n");
+    for(i=0;i<taille;i++)
+        printf("%d    ",tab[i]);
+    printf("\n\n");
+    printf("décalage élément indice 0\n");
+    pb=decalerADroiteI(tab,tmax,0,&taille);
+    tab[0]=1;
+    taille=taille+1;
+    printf("affichage tableau\n");
+    for(i=0;i<taille;i++)
+        printf("%d    ",tab[i]);
+    printf("\n\n");
+    printf("décalage élément indice 2\n");
+    pb=decalerADroiteI(tab,tmax,2,&taille);
+    tab[2]=2;
+    taille=taille+1;
+    printf("affichage tableau\n");
+    for(i=0;i<taille;i++)
+        printf("%d    ",tab[i]);
+    printf("\n\n");
+    printf("décalage élément indice 5\n");
+    pb=decalerADroiteI(tab,tmax,5,&taille);
+    tab[5]=3;
+    taille=taille+1;
+    printf("affichage tableau\n");
+    for(i=0;i<taille;i++)
+        printf("%d    ",tab[i]);
+    printf("\n\n");
+    printf("décalage élément indice 2\n");
+    pb=decalerADroiteI(tab,tmax,2,&taille);
+    printf("\n");
+}
+
 void testRecherche(void){
     int tab[20]={3,7,10,29,33},taille=5,val=8,trouve,indice;
     indice=recherche(tab,taille,val,&trouve);
@@ -113,5 +188,7 @@ int main(void){
     testSauvegarderOffre();
     testajout();
     */
+    test_decalageD_Float();
+    test_decalageD_Int();
     return 0;
 }

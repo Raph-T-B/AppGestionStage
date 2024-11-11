@@ -156,7 +156,7 @@ int decalerADroiteI(int tab[],int tailleM,int ind,int *tLog){
         printf("Problème de taille de tableau : trop petit");
         return -1;
     }
-    for (i=*tLog;i=ind;i--){
+    for (i=*tLog;i>ind;i--){
         tab[i]=tab[i-1];
     }
     return 0;
@@ -171,10 +171,10 @@ int decalerADroiteI(int tab[],int tailleM,int ind,int *tLog){
 int decalerADroiteF(float tab[],int tailleM,int ind,int *tLog){
     int i;
     if (tailleM==*tLog){
-        printf("Problème de taille de tableau : trop petit");
+        printf("Problème de taille de tableau : trop petit\n");
         return -1;
     }
-    for (i=*tLog;i=ind;i--){
+    for (i=*tLog;i>ind;i--){
         tab[i]=tab[i-1];
     }
     return 0;
@@ -223,6 +223,82 @@ void afficherInfoStage(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_N
         printf("Stage %d introuvable.\n", ref);
     }
 }
+
+/// @brief Affiche les stages en fonction d'un critère donné (numéro de stage ou département)
+/// @param Tab_Ref Tableau des références de stages
+/// @param Tab_Dep Tableau des départements des stages
+/// @param Tlog Taille logique des tableaux
+/// @param critere Critère de recherche : numéro de stage ou département
+/// @param valeur Valeur à rechercher pour le critère
+void afficherStagesParCritere(int Tab_Ref[], int Tab_Dep[], int Tlog, char critere, int valeur) {
+    if (critere == 'n') 
+        printf("Recherche des stages par numéro = %d :\n", valeur);
+    if (critere == 'd')
+        printf("Recherche des stages par département = %d :\n", valeur);
+    for (int i = 0; i < Tlog; i++) {
+        if ((critere == 'n' && Tab_Ref[i] == valeur) || (critere == 'd' && Tab_Dep[i] == valeur)) {
+            printf("Stage %d (Département %d)\n", Tab_Ref[i], Tab_Dep[i]);
+        }
+    }
+}
+
+/// @brief Affiche tous les stages auxquels un étudiant donné a candidaté.
+/// @param Tab_EtuCandidature Tableau des numéros d'étudiants ayant candidaté.
+/// @param Tab_RefCandidature Tableau des références des stages pour chaque candidature.
+/// @param TlogCandidature Taille logique du tableau de candidatures.
+/// @param Netu Numéro de l'étudiant à rechercher.
+void afficherCandidaturesEtudiant(int Tab_EtuCandidature[], int Tab_RefCandidature[], int TlogCandidature, int Netu) { // C'est pour l'affichage de toutes ses candidatures (pour l'élève)
+    printf("Candidatures de l'étudiant %d :\n", Netu);
+    int trouve = 0;
+    for (int i = 0; i < TlogCandidature; i++) {
+        if (Tab_EtuCandidature[i] == Netu) {
+            printf("Stage %d\n", Tab_RefCandidature[i]);
+            trouve = 1;
+        }
+    }
+    if (!trouve) {
+        printf("Aucune candidature trouvée pour l'étudiant %d.\n", Netu);
+    }
+}
+
+/// @brief Affiche le stage affecté à un étudiant donné, s'il y a lieu.
+/// @param Tab_Etu Tableau des étudiants.
+/// @param Tab_RSta Tableau des stages affectés à chaque étudiant.
+/// @param Tlog Taille logique des tableaux.
+/// @param Netu Numéro de l'étudiant à rechercher.
+void afficherStageAffecte(int Tab_Etu[], int Tab_RSta[], int Tlog, int Netu) {  // fonction pour l'affichage du stage qui est affecté à l'élève
+    for (int i = 0; i < Tlog; i++) {
+        if (Tab_Etu[i] == Netu) {
+            if (Tab_RSta[i] != -1) {
+                printf("Étudiant %d est affecté au stage %d\n", Netu, Tab_RSta[i]);
+            } else {
+                printf("Étudiant %d n'a pas de stage affecté.\n", Netu);
+            }
+            return;
+        }
+    }
+    printf("Étudiant %d introuvable.\n", Netu);
+}
+
+/// @brief Affiche tous les stages d'un département donné.
+/// @param Tab_Ref Tableau des références de stages.
+/// @param Tab_Dep Tableau des départements associés à chaque stage.
+/// @param Tlog Taille logique des tableaux.
+/// @param dept Numéro du département à rechercher.
+void afficherStagesParDepartement(int Tab_Ref[], int Tab_Dep[], int Tlog, int dept) {
+    printf("Stages disponibles dans le département %d :\n", dept);
+    int trouve = 0;
+    for (int i = 0; i < Tlog; i++) {
+        if (Tab_Dep[i] == dept) {
+            printf("Stage %d\n", Tab_Ref[i]);
+            trouve = 1;
+        }
+    }
+    if (!trouve) {
+        printf("Aucun stage trouvé dans le département %d.\n", dept);
+    }
+}
+
 
 /// @brief Fonction pour ajouter une note à un étudiant
 /// @param Tab_Etu : Tableau contenant les numéros etudiants
