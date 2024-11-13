@@ -20,3 +20,6 @@ void afficherStagesParCritere(int Tab_Ref[], int Tab_Dep[], int Tlog, char crite
 void afficherCandidaturesEtudiant(int Tab_EtuCandidature[], int Tab_RefCandidature[], int TlogCandidature, int Netu);
 void afficherStageAffecte(int Tab_Etu[], int Tab_RSta[], int Tlog, int Netu);
 void afficherStagesParDepartement(int Tab_Ref[], int Tab_Dep[], int Tlog, int dept);
+void menuResponsable(void);
+void menuEtudiant(void);
+char menuChoix(void);

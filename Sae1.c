@@ -380,3 +380,72 @@ void sauvegardeOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand
         
     }
 }
+
+char menuChoix(void)
+{
+  char id;
+  printf("Bienvenue sur votre système de gestion de stage, Êtes vous un Etudiant ou un Responsable de stages ? : E/R ");
+  scanf("%c%*c",&id);
+  while(id !="E" || id !="e" || id !="R" || id !="r")
+  {
+    printf("\n Erreur dans votre choix, veuillez recommencer\n")
+    printf("Bienvenue sur votre système de gestion de stage, Êtes vous un Etudiant ou un Responsable de stages ? : E/R ");
+    scanf("%c%*c",&id);
+  }
+  if(id=="E" || id =="e")
+    menuEtudiant();
+  if(id=="R" || id=="r")
+    menuResponsable();
+}
+
+void menuResponsable(void)
+{
+  int choix;
+  printf(" 1/ Affichage des stages avec candidature \n 2/ Affichage des stages sans candidature \n 3/ Liste des étudiants sans stages \n 4/ Informations sur un stage \n 5/ Recherche de stages \n 6/ Affectation d'un stage à un étudiant \n 7/ Ajout note de stage \n 9/ Quitter \n");
+  scanf("%d",&choix);
+  while (choix>7 && choix<9)
+  {
+    printf("Erreur, veuillez recommencer.\n");
+    printf(" 1/ Affichage des stages avec candidature \n 2/ Affichage des stages sans candidature \n 3/ Liste des étudiants sans stages \n 4/ Informations sur un stage \n 5/ Recherche de stages \n 6/ Affectation d'un stage à un étudiant \n 7/ Ajout note de stage \n 9/ Quitter \n");
+    scanf("%d",&choix);
+  }
+  if(choix==1)
+    fontion.;
+  if(choix==2)
+    fontion.;
+  if(choix==3)
+    fontion.;
+  if(choix==4)
+    fontion.;
+  if(choix==5)
+    fontion.;
+  if(choix==6)
+    fontion.;
+  if(choix==7)
+    fontion.;
+  if(choix==9)
+    exit(1);
+}
+
+
+
+void menuEtudiant(void)
+{
+  int choix;
+  printf(" 1/ Affichage de la liste des stages disponibles \n 2/ Affichage des candidatures \n 3/ Ajouter une candidature \n 9/ Quitter");
+  scanf("%d",&choix);
+  while(choix >3 && choix <9)
+  {
+    printf("Erreur, veuillez recommencer.\n");
+    printf(" 1/ Affichage de la liste des stages disponibles \n 2/ Affichage des candidatures \n 3/ Ajouter une candidature \n 9/ Quitter");
+    scanf("%d",&choix);
+  }
+  if(choix==1)
+    fontion.;
+  if(choix==2)
+    fontion.;
+  if(choix==3)
+    fontion.;
+  if(choix==9)
+    exit(1);
+}
