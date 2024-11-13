@@ -144,6 +144,21 @@ int recherche(int tab[],int taille,int val,int *trouve){
     return taille;
 }
 
+/// @brief Recherche dans une valeur unique dans le tableau tab 
+/// @param tab tab dans lequel la valeur est recherché
+/// @param taille taille logique du tableau
+/// @param val valeur à recherché
+/// @return l'indice de la valeur val dans le tableau tab
+int rechercheStag(int tab[],int taille,int val){
+    int ind=0;
+    for(ind=0;ind<taille;ind++){
+        if (tab[ind]==val)
+            return ind;
+    }
+    return ind;
+}
+
+
 /// @brief Décale le contenu du tableau d'entiers d'une case vers la droite
 /// @param tab : Tableau dans lequel le décalage va être effectué
 /// @param tailleM : taille max du tableau 
@@ -180,11 +195,13 @@ int decalerADroiteF(float tab[],int tailleM,int ind,int *tLog){
     return 0;
 }
 
-void afficherStagesPourvus(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_Etu[], int Tlog) {
+void afficherStagesPourvus(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_Etu[],int Tab_RSta[], int Tlog) {
+    int indnumE;
     printf("Stages pourvus avec étudiants affectés :\n");
     for (int i = 0; i < Tlog; i++) {
         if (Tab_EtuAcc[i] == 1) {  
-            printf("Stage %d (Département %d) - Étudiant affecté : %d\n", Tab_Ref[i], Tab_Dep[i], Tab_Etu[i]);
+            indnumE=rechercheStag(Tab_RSta,Tlog,Tab_Ref[i]);
+            printf("Stage %d (Département %d) - Étudiant affecté : %d\n", Tab_Ref[i], Tab_Dep[i], Tab_Etu[indnumE]);
         }
     }
 }
@@ -381,6 +398,7 @@ void sauvegardeOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand
     }
 }
 
+/*
 char menuChoix(void)
 {
   char id;
@@ -449,3 +467,5 @@ void menuEtudiant(void)
   if(choix==9)
     exit(1);
 }
+
+*/

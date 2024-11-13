@@ -97,18 +97,23 @@ void testAfficherStagesPourvus(void)
 {
     int Tab_Ref[]= {5008,2001,8000,5623};
     int Tab_Dep[]= {26,56,80,63};
-    int Tab_EtuAcc[]= {0,1,0,-1};
+    int Tab_EtuAcc[]= {0,1,0,1};
     int Tab_Etu[]={101,124,236,520};
+    int Tab_RSta[]={2001,-1,5623,-1};
     int Tlog=4;
-    afficherStagesPourvus(Tab_Ref,Tab_Dep,Tab_EtuAcc, Tab_Etu, Tlog);
+    printf("test Afficher Stages Pourvus\n");
+    printf("doit renvoyer : 2001 pour l'étudiant 101, 5623 pour l'étudiant 236  \n");
+    afficherStagesPourvus(Tab_Ref,Tab_Dep,Tab_EtuAcc, Tab_Etu, Tab_RSta,Tlog);
 }
 
 void testAfficherStagesNonPourvus(void)
 {
     int Tab_Ref[]={5008,2001,8000,5623};
     int Tab_Dep[]={26,56,80,63};
-    int Tab_EtuAcc[]={0,1,-1,1};
+    int Tab_EtuAcc[]={0,1,0,1};
     int Tlog=4;
+    printf("test Afficher Stages Pourvus \n");
+    printf("doit renvoyer : 5008 et 8000 \n");
     afficherStagesNonPourvus(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tlog);
 }
 
@@ -180,15 +185,25 @@ void testSauvegarderOffre(void){
 
 int main(void){
     /*testRecherche();
-    testAfficherStagesPourvus();
-    testAfficherStagesNonPourvus();
-    testAfficherEtudiantsSansStage();
-    testAfficherInfoStage();
-    testSauvegarderEtu();
-    testSauvegarderOffre();
-    testajout();
     */
+    printf("\n\n");
+    testAfficherStagesPourvus();
+    printf("\n\n");
+    testAfficherStagesNonPourvus();
+    printf("\n\n");
+    testAfficherEtudiantsSansStage();
+    printf("\n\n");
+    testAfficherInfoStage();
+    printf("\n\n");
+    testSauvegarderEtu();
+    printf("\n\n");
+    testSauvegarderOffre();
+    printf("\n\n");
+    testajout();
+    printf("\n\n");
     test_decalageD_Float();
+    printf("\n\n");
     test_decalageD_Int();
+    printf("\n\n");
     return 0;
 }
