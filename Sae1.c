@@ -195,6 +195,13 @@ int decalerADroiteF(float tab[],int tailleM,int ind,int *tLog){
     return 0;
 }
 
+/// @brief 
+/// @param Tab_Ref 
+/// @param Tab_Dep 
+/// @param Tab_EtuAcc 
+/// @param Tab_Etu 
+/// @param Tab_RSta 
+/// @param Tlog 
 void afficherStagesPourvus(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_Etu[],int Tab_RSta[], int Tlog) {
     int indnumE;
     printf("Stages pourvus avec étudiants affectés :\n");
@@ -206,6 +213,11 @@ void afficherStagesPourvus(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int T
     }
 }
 
+/// @brief 
+/// @param Tab_Ref 
+/// @param Tab_Dep 
+/// @param Tab_EtuAcc 
+/// @param Tlog 
 void afficherStagesNonPourvus(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tlog) {
     printf("Stages non pourvus :\n");
     for (int i = 0; i < Tlog; i++) {
@@ -224,7 +236,7 @@ void afficherEtudiantsSansStage(int Tab_Etu[], int Tab_RSta[], int Tlog) {
     }
 }
 
-void afficherInfoStage(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_NCand[], int Tlog, int ref) {
+void afficherInfoStage(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_NCand[], int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Tlog, int ref) {
     int trouve = 0;
     for (int i = 0; i < Tlog; i++) {
         if (Tab_Ref[i] == ref) {
@@ -232,11 +244,21 @@ void afficherInfoStage(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_N
             printf("Département : %d\n", Tab_Dep[i]);
             printf("Pourvu : %s\n", Tab_EtuAcc[i] == 1 ? "Oui" : "Non");
             printf("Nombre de candidatures : %d\n", Tab_NCand[i]);
+            if (Tab_NCand[i]>0){
+                printf("Candidat 1 : %d",Tab_Cand1[i]);
+                if (Tab_NCand[i]>1){
+                    printf(",\tCandidat 2 : %d",Tab_Cand2[i]);
+                    if (Tab_NCand[i]>2){
+                        printf(",\tCandidat 3 : %d",Tab_Cand3[i]);
+                    }
+                }
+            printf("\n");
+            }
             trouve = 1;
             break;
         }
     }
-    if (!trouve) {
+    if (trouve==0) {
         printf("Stage %d introuvable.\n", ref);
     }
 }
