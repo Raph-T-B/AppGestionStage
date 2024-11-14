@@ -6,25 +6,24 @@
 /// @param Tab_Note : Tableau contenant les notes des etudiants
 /// @param Tmax : Taille max des tableaux
 /// @return : La taille logique des tableaux
-int chargementEtu(int Tab_Etu[], int Tab_RSta[],float Tab_Note[],int Tmax ){
+int chargementEtu(int Tab_Etu[], int Tab_RSta[],float Tab_Note[],int Tmax,FILE *fich){
     int ind=0,Netu,RSta,trouve,rech_ind;
     float Note;
-    FILE *flot;
-    flot=fopen("Etudiant.don","r");
-    if (flot==NULL)
+    fich=fopen("Etudiant.don","r");
+    if (fich==NULL)
         printf("Problème d'ouverture du fichier 'Etudiant.don'");
         return -1;
-    fscanf(flot,"%d%d%f",&Netu,&RSta,&Note);
-    while(!feof(flot)){
+    fscanf(fich,"%d%d%f",&Netu,&RSta,&Note);
+    while(!feof(fich)){
         if (ind==Tmax){
             printf("PB : Nombre d'étudiant à gérer trop grand, le tableau est trop petit");
-            fclose(flot);
+            fclose(fich);
             return -2;
         }
         rech_ind=recherche(Tab_Etu,ind,Netu,&trouve);
         if (trouve==1){
             printf("PB : Etudiant %d A plus d'une occurence",Netu);
-            fclose(flot);
+            fclose(fich);
             return -2;
         }
         decalerADroiteI(Tab_Etu,Tmax,rech_ind,&ind);
@@ -34,9 +33,9 @@ int chargementEtu(int Tab_Etu[], int Tab_RSta[],float Tab_Note[],int Tmax ){
         Tab_RSta[rech_ind]=RSta;
         Tab_Note[rech_ind]=Note;
         ind=ind+1;
-        fscanf(flot,"%d%d%f",&Netu,&RSta,&Note);
+        fscanf(fich,"%d%d%f",&Netu,&RSta,&Note);
     }
-    fclose(flot);
+    fclose(fich);
     return ind;
 }
 
@@ -50,48 +49,47 @@ int chargementEtu(int Tab_Etu[], int Tab_RSta[],float Tab_Note[],int Tmax ){
 /// @param Tab_Cand3 : Contient le troisième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
 /// @param Tmax : Taille maximum des tableau
 /// @return -1 s'il y a un problème, la taille logique du tableau sinon
-int chargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[],int Tmax,int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[]){
+int chargementOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[],int Tmax,int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],FILE *fich){
     int ind=0,Ref,Dep,Etu_acc,nbr_cand,num;
-    FILE *flot;
-    flot=fopen("Stage.don","r");
-    if (flot==NULL){
+    fich=fopen("Stage.don","r");
+    if (fich==NULL){
         printf("Problème d'ouverture du fichier 'Stage.don'");
         return -1;
     }
-    fscanf(flot,"%d%d",&Ref,&Dep);
-    while(!feof(flot)){
+    fscanf(fich,"%d%d",&Ref,&Dep);
+    while(!feof(fich)){
         if (ind==Tmax){
-            fclose(flot);
+            fclose(fich);
             printf("PB: Nombre d'offre à gérer trop grand, tableau trop petit");
             return -1;
         }
         Tab_Ref[ind]=Ref;
         Tab_Dep[ind]=Dep;
-        fscanf(flot,"%d",&Etu_acc);
+        fscanf(fich,"%d",&Etu_acc);
         Tab_EtuAcc[ind]=Etu_acc;
         if (Etu_acc==0)
         {
-            fscanf(flot,"%d",&nbr_cand);
+            fscanf(fich,"%d",&nbr_cand);
             Tab_NCand[ind]=nbr_cand;
             if(nbr_cand>0){   
-                fscanf(flot,"%d",&num);
+                fscanf(fich,"%d",&num);
                 Tab_Cand1[ind]= num;
             }
             if(nbr_cand>1)
             {
-                fscanf(flot,"%d",&num);
+                fscanf(fich,"%d",&num);
                 Tab_Cand2[ind]= num;
             }
             if(nbr_cand>2)
             {
-                fscanf(flot,"%d",&num);
+                fscanf(fich,"%d",&num);
                 Tab_Cand3[ind]=num;
             }
         }
         ind=ind+1;
-        fscanf(flot,"%d%d",&Ref,&Dep);
+        fscanf(fich,"%d%d",&Ref,&Dep);
     }
-    fclose(flot);
+    fclose(fich);
     return ind;
 }
 
@@ -195,6 +193,29 @@ int decalerADroiteF(float tab[],int tailleM,int ind,int *tLog){
     return 0;
 }
 
+/// @brief Affiche le contenu d'un tableau d'entier en format tableau :[,,,]
+/// @param tab table à afficher
+/// @param Tlog taille logique du tableau
+void afficheTabEnt(int tab[],int Tlog){
+    int ind;
+    printf("[");
+    for(ind=0;ind<Tlog-1;ind++)
+        printf("%d,",tab[ind]);
+    printf("%d]\n",tab[ind]);
+}
+
+/// @brief Affiche le contenu d'un tableau de float en format tableau :[,,,]
+/// @param tab table à afficher
+/// @param Tlog taille logique du tableau
+void afficheTabFlo(float tab[],int Tlog){
+    int ind;
+    printf("[");
+    for (ind=0;ind<Tlog-1;ind++){
+        printf("%.2f,",tab[ind]);
+    }
+    printf("%.2f]\n",tab[ind]);
+}
+
 /// @brief 
 /// @param Tab_Ref 
 /// @param Tab_Dep 
@@ -227,6 +248,10 @@ void afficherStagesNonPourvus(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], in
     }
 }
 
+/// @brief 
+/// @param Tab_Etu 
+/// @param Tab_RSta 
+/// @param Tlog 
 void afficherEtudiantsSansStage(int Tab_Etu[], int Tab_RSta[], int Tlog) {
     printf("Etudiants sans stages :\n");
     for (int i = 0; i < Tlog; i++) {
@@ -236,6 +261,16 @@ void afficherEtudiantsSansStage(int Tab_Etu[], int Tab_RSta[], int Tlog) {
     }
 }
 
+/// @brief 
+/// @param Tab_Ref 
+/// @param Tab_Dep 
+/// @param Tab_EtuAcc 
+/// @param Tab_NCand 
+/// @param Tab_Cand1 
+/// @param Tab_Cand2 
+/// @param Tab_Cand3 
+/// @param Tlog 
+/// @param ref 
 void afficherInfoStage(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_NCand[], int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Tlog, int ref) {
     int trouve = 0;
     for (int i = 0; i < Tlog; i++) {
@@ -262,7 +297,7 @@ void afficherInfoStage(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_N
         printf("Stage %d introuvable.\n", ref);
     }
 }
-
+//Non vérifiée
 /// @brief Affiche les stages en fonction d'un critère donné (numéro de stage ou département)
 /// @param Tab_Ref Tableau des références de stages
 /// @param Tab_Dep Tableau des départements des stages
@@ -280,7 +315,7 @@ void afficherStagesParCritere(int Tab_Ref[], int Tab_Dep[], int Tlog, char crite
         }
     }
 }
-
+//Non vérifiée
 /// @brief Affiche tous les stages auxquels un étudiant donné a candidaté.
 /// @param Tab_EtuCandidature Tableau des numéros d'étudiants ayant candidaté.
 /// @param Tab_RefCandidature Tableau des références des stages pour chaque candidature.
@@ -299,7 +334,7 @@ void afficherCandidaturesEtudiant(int Tab_EtuCandidature[], int Tab_RefCandidatu
         printf("Aucune candidature trouvée pour l'étudiant %d.\n", Netu);
     }
 }
-
+//Non vérifiée
 /// @brief Affiche le stage affecté à un étudiant donné, s'il y a lieu.
 /// @param Tab_Etu Tableau des étudiants.
 /// @param Tab_RSta Tableau des stages affectés à chaque étudiant.
@@ -318,7 +353,7 @@ void afficherStageAffecte(int Tab_Etu[], int Tab_RSta[], int Tlog, int Netu) {  
     }
     printf("Étudiant %d introuvable.\n", Netu);
 }
-
+//Non vérifiée
 /// @brief Affiche tous les stages d'un département donné.
 /// @param Tab_Ref Tableau des références de stages.
 /// @param Tab_Dep Tableau des départements associés à chaque stage.
@@ -362,10 +397,22 @@ int ajoutNote(int Tab_Etu[],float Tab_Note[],int Tlog){
             return -1;
         printf("Quelle est la note de l'entreprise ? : ");
         scanf("%f",&noteE);
+        while (noteE>20||noteE<0){
+            printf("La note saisie n'est pas correcte, veuillez la ressaisir : ");
+            scanf("%f",&noteE);
+        }
         printf("Quelle est la note du rapport ? : ");
         scanf("%f",&noteR);
+        while (noteR>20||noteR<0){
+            printf("La note saisie n'est pas correcte, veuillez la ressaisir : ");
+            scanf("%f",&noteR);
+        }
         printf("Quelle est la note soutenance ? : ");
         scanf("%f",&noteS);
+        while (noteS>20||noteS<0){
+            printf("La note saisie n'est pas correcte, veuillez la ressaisir : ");
+            scanf("%f",&noteS);
+        }
         noteG=(noteE*2+noteR+noteS)/4;
         printf("\n");
         printf("Notes: entreprise:%.2f rapport:%.2f soutenance:%.2f Globale:%.2f\n",noteE,noteR,noteS,noteG);
@@ -382,12 +429,10 @@ int ajoutNote(int Tab_Etu[],float Tab_Note[],int Tlog){
 /// @param Tab_RSta Table contenant les Références du stage où les étudiants ont été acceptés 
 /// @param Tab_Note Table contenant les Notes des etudiants reçue durant leur stage
 /// @param Tlog Taille logique de ces tableaux
-void sauvegardeEtu(int Tab_Etu[], int Tab_RSta[],float Tab_Note[],int Tlog){
+void sauvegardeEtu(int Tab_Etu[], int Tab_RSta[],float Tab_Note[],int Tlog,FILE *fich){
     int i=0;
-    FILE *flot;
-    flot=fopen("Etudiant.don","w");
     for(i=0;i<Tlog;i++){
-        fprintf(flot,"%d    %.2f    %d\n",Tab_Etu[i],Tab_Note[i],Tab_RSta[i]);
+        fprintf(fich,"%d    %.2f    %d\n",Tab_Etu[i],Tab_Note[i],Tab_RSta[i]);
     }
 }
 
@@ -400,21 +445,19 @@ void sauvegardeEtu(int Tab_Etu[], int Tab_RSta[],float Tab_Note[],int Tlog){
 /// @param Tab_Cand1 Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
 /// @param Tab_Cand2 Contient le deuxième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
 /// @param Tab_Cand3 Contient le troisième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
-void sauvegardeOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[],int Tlog,int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[]){
+void sauvegardeOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[],int Tlog,int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],FILE *fich){
     int i=0;
-    FILE *flot;
-    flot=fopen("Stage.don","w");
     for(i=0;i<Tlog;i++){
-        fprintf(flot,"%d    %d\n",Tab_Ref[i],Tab_Dep[i]);
-        fprintf(flot,"%d\n",Tab_EtuAcc[i]);
+        fprintf(fich,"%d    %d\n",Tab_Ref[i],Tab_Dep[i]);
+        fprintf(fich,"%d\n",Tab_EtuAcc[i]);
         if(Tab_EtuAcc[i]==0){
-            fprintf(flot,"%d\n",Tab_NCand[i]);
+            fprintf(fich,"%d\n",Tab_NCand[i]);
             if (Tab_NCand[i]>0)
-                fprintf(flot,"%d\n",Tab_Cand1[i]);
+                fprintf(fich,"%d\n",Tab_Cand1[i]);
             if (Tab_NCand[i]>1)
-                fprintf(flot,"%d\n",Tab_Cand2[i]);
+                fprintf(fich,"%d\n",Tab_Cand2[i]);
             if (Tab_NCand[i]>2)
-                fprintf(flot,"%d\n",Tab_Cand3[i]);
+                fprintf(fich,"%d\n",Tab_Cand3[i]);
         }
         
     }
