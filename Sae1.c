@@ -401,20 +401,20 @@ void sauvegardeOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand
     }
 }
 
-char menuChoix(int Tab_Ref[], int Tab_EtuAcc[], int Tlog, int Netu, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[])
+int menuChoix(int Tab_Ref[], int Tab_EtuAcc[], int Tlog, int Netu, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[])
 {
-  char id;
-  printf("Bienvenue sur votre système de gestion de stage, Êtes vous un Etudiant ou un Responsable de stages ? : E/R ");
-  scanf("%c%*c",&id);
-  while(id !="E" || id !="e" || id !="R" || id !="r")
+  int id;
+  printf("Bienvenue sur votre système de gestion de stage, Êtes vous un Etudiant ou un Responsable de stages ? : 1/2 ");
+  scanf("%d",&id);
+  while(id<1 && id>2)
   {
     printf("\n Erreur dans votre choix, veuillez recommencer\n");
-    printf("Bienvenue sur votre système de gestion de stage, Êtes vous un Etudiant ou un Responsable de stages ? : E/R ");
-    scanf("%c%*c",&id);
+    printf("Bienvenue sur votre système de gestion de stage, Êtes vous un Etudiant ou un Responsable de stages ? : 1/2 ");
+    scanf("%d",&id);
   }
-  if(id=="E" || id =="e")
+  if(id==1)
     menuEtudiant(Tab_Ref,Tab_Dep,Tab_EtuAcc, Tlog, Netu, Tab_Etu);
-  if(id=="R" || id=="r")
+  if(id==2)
     menuResponsable(Tab_Ref,  Tab_EtuAcc, Tlog, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tab_NCand, Tab_Dep,Tab_Etu,Tab_RSta,Tab_Note);
 }
 
