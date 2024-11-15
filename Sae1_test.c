@@ -211,5 +211,9 @@ int main(void){
     testajout();
     printf("\n\n");
     */
+    testSauvegarderEtu();
+    printf("\n\n");
+    testSauvegarderOffre();
+    printf("\n\n");
     return 0;
 }

@@ -215,14 +215,13 @@ void afficheTabFlo(float tab[],int Tlog){
     }
     printf("%.2f]\n",tab[ind]);
 }
-
-/// @brief 
-/// @param Tab_Ref 
-/// @param Tab_Dep 
-/// @param Tab_EtuAcc 
-/// @param Tab_Etu 
-/// @param Tab_RSta 
-/// @param Tlog 
+/// @brief  Fonction d'affichage des infos d'un stage donné en argument
+/// @param Tab_Ref : Tableau contenant les références des stages
+/// @param Tab_Dep : Tableau contenant les Départements des stages
+/// @param Tab_EtuAcc : Tableau contenant si un stage a accépté un étudiant
+/// @param Tab_Etu : Table contenant les étudiants
+/// @param Tab_RSta : Table contenant les références de stage pour les etudiants
+/// @param Tlog : taille logique du tableau
 void afficherStagesPourvus(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_Etu[],int Tab_RSta[], int Tlog) {
     int indnumE;
     printf("Stages pourvus avec étudiants affectés :\n");
@@ -234,11 +233,11 @@ void afficherStagesPourvus(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int T
     }
 }
 
-/// @brief 
-/// @param Tab_Ref 
-/// @param Tab_Dep 
-/// @param Tab_EtuAcc 
-/// @param Tlog 
+/// @brief  Fonction d'affichage des stages non pourvus d'étudiants
+/// @param Tab_Ref : Tableau contenant les références des stages
+/// @param Tab_Dep : Tableau contenant les Départements des stages
+/// @param Tab_EtuAcc : Tableau contenant si un stage a accépté un étudiant
+/// @param Tlog : taille logique du tableau
 void afficherStagesNonPourvus(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tlog) {
     printf("Stages non pourvus :\n");
     for (int i = 0; i < Tlog; i++) {
@@ -248,10 +247,10 @@ void afficherStagesNonPourvus(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], in
     }
 }
 
-/// @brief 
-/// @param Tab_Etu 
-/// @param Tab_RSta 
-/// @param Tlog 
+/// @brief Fonction d'affichage des etudiants sans stage
+/// @param Tab_Etu : Table contenant les étudiants
+/// @param Tab_RSta : Table contenant les références de stage pour les etudiants
+/// @param Tlog : taille logique du tableau
 void afficherEtudiantsSansStage(int Tab_Etu[], int Tab_RSta[], int Tlog) {
     printf("Etudiants sans stages :\n");
     for (int i = 0; i < Tlog; i++) {
@@ -261,16 +260,16 @@ void afficherEtudiantsSansStage(int Tab_Etu[], int Tab_RSta[], int Tlog) {
     }
 }
 
-/// @brief 
-/// @param Tab_Ref 
-/// @param Tab_Dep 
-/// @param Tab_EtuAcc 
-/// @param Tab_NCand 
-/// @param Tab_Cand1 
-/// @param Tab_Cand2 
-/// @param Tab_Cand3 
-/// @param Tlog 
-/// @param ref 
+/// @brief Fonction d'affichage des infos d'un stage donné en argument
+/// @param Tab_Ref : Tableau contenant les références des stages
+/// @param Tab_Dep : Tableau contenant les Départements des stages
+/// @param Tab_EtuAcc : Tableau contenant si un stage a accépté un étudiant
+/// @param Tab_NCand : Tableau contenant les Départements des stages
+/// @param Tab_Cand1 : Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand2 : Contient le deuxième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand3 : Contient le troisième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tlog : taille logique du tableau
+/// @param ref : référence de stage pour lequel on cherche des informations
 void afficherInfoStage(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_NCand[], int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Tlog, int ref) {
     int trouve = 0;
     for (int i = 0; i < Tlog; i++) {
