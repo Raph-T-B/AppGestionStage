@@ -278,8 +278,8 @@ void afficherInfoStage(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_N
             printf("Informations du stage %d :\n", ref);
             printf("Département : %d\n", Tab_Dep[i]);
             printf("Pourvu : %s\n", Tab_EtuAcc[i] == 1 ? "Oui" : "Non");
-            printf("Nombre de candidatures : %d\n", Tab_NCand[i]);
             if (Tab_NCand[i]>0){
+                printf("Nombre de candidatures : %d\n", Tab_NCand[i]);
                 printf("Candidat 1 : %d",Tab_Cand1[i]);
                 if (Tab_NCand[i]>1){
                     printf(",\tCandidat 2 : %d",Tab_Cand2[i]);
@@ -369,7 +369,7 @@ void afficherStageAffecte(int Tab_Etu[], int Tab_RSta[], int Tlog, int Netu) {  
 }
 //Non vérifiée
 /// @brief Affiche tous les stages d'un département donné.
-/// @param Tab_Ref : Tableau des références de stages.
+/// @param Tab_Ref : Tableau contenant les références des stages
 /// @param Tab_Dep : Tableau des départements associés à chaque stage.
 /// @param Tlog : Taille logique des tableaux.
 /// @param dept : Numéro du département à rechercher.
@@ -387,10 +387,46 @@ void afficherStagesParDepartement(int Tab_Ref[], int Tab_Dep[], int Tlog, int de
     }
 }
 
-/*
-void AccepteEtu(int Tab_Etu[],int Tab_Rsta[],int Tab_Ref[],int Tab_EtuAcc[],int TlogEtu,int TlogSta, ){
+
+/// @brief Fonction pour accepter un étudiant donné à un stage
+/// @param Tab_Etu : Tableau contenant les numéros etudiants
+/// @param Tab_RSta : Tableau contenant la référence de stage des etudiants
+/// @param Tab_Ref : Tableau contenant les références des stages
+/// @param Tab_EtuAcc : Tableau contenant si un stage a accépté un étudiant
+/// @param Tab_NCand : Tableau contenant les Départements des stages
+/// @param Tab_Cand1 : Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand2 : Contient le deuxième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand3 : Contient le troisième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param TlogEtu : Taille logique des tableaux Etu/RSta
+/// @param TlogSta : Taille logique des tableaux Ref/NCand/Cand1/Cand2/Cand3
+/// @param refStage : Référence du stage à changer
+/// @param num_Etu : Numéro d'étudiant accepté
+void AccepteEtu(int Tab_Etu[],int Tab_Rsta[],int Tab_Ref[],int Tab_EtuAcc[],int Tab_NCand[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int TlogEtu,int TlogSta,int refStage, int num_Etu){
+    int ind,trouve;
+    ind=rechercheStag(Tab_Ref,TlogSta,refStage);
+    Tab_EtuAcc[ind]=1;
+    for(ind=0;ind<TlogSta;ind++){
+        if(Tab_NCand[ind]>0){
+            if(Tab_Cand1[ind]==num_Etu){
+                SupprimeCandidature(Tab_Ref,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogSta,num_Etu,ind);
+            }
+        }
+        if(Tab_NCand[ind]>1){
+            if(Tab_Cand2[ind]==num_Etu){
+                SupprimeCandidature(Tab_Ref,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogSta,num_Etu,ind);
+            }
+        }
+        if(Tab_NCand[ind]>2){
+            if(Tab_Cand3[ind]==num_Etu){
+                SupprimeCandidature(Tab_Ref,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogSta,num_Etu,ind);
+            }
+        }
+    }
+    ind=recherche(Tab_Etu,TlogEtu,num_Etu,&trouve);
+    Tab_Rsta[ind]=refStage;
 }
-*/
+
+
 /// @brief Fonction qui supprime un candidat
 /// @param Tab_Ref : Tableau contenant les références des stages
 /// @param Tab_NCand : Tableau contenant les Départements des stages
@@ -399,10 +435,9 @@ void AccepteEtu(int Tab_Etu[],int Tab_Rsta[],int Tab_Ref[],int Tab_EtuAcc[],int 
 /// @param Tab_Cand3 : Contient le troisième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
 /// @param Tlog : Taille logique des tableaux
 /// @param etu : numéro de l'étudiant à supprimer
-/// @param stage : numéro du stage où l'étudiant est supprimé
-void SupprimeCandidature(int Tab_Ref[],int Tab_NCand[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Tlog,int etu,int stage){
-    int i,ind;
-    ind=rechercheStag(Tab_Ref,Tlog,stage);
+/// @param stage : l'indice du stage où l'étudiant est supprimé
+void SupprimeCandidature(int Tab_Ref[],int Tab_NCand[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Tlog,int etu,int ind){
+    int i;
     if (Tab_Cand1[ind]==etu){
         if(Tab_NCand[ind]>1)
             Tab_Cand1[ind]=Tab_Cand2[ind];

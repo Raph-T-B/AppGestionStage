@@ -218,6 +218,7 @@ void test_afficherCandidaturesEtudiant() {
     afficherCandidaturesEtudiant(Tab_Etu, Tab_RSta, Tlog, etu_num);
 }
 */
+//VERIFIED !!// 
 void testSupprimeCandidature(void){
     int Tab_Ref[]= {5008,2001,8000,5623,2388};
     int Tab_Dep[]= {26,56,80,63,95};
@@ -226,12 +227,44 @@ void testSupprimeCandidature(void){
     int Tab_Cand1[]={0,0,138,138,870};
     int Tab_Cand2[]={0,0,0,637,94};
     int Tab_Cand3[]={0,0,0,0,458};
-    int Tlog=5,ref=5623;
-    printf("--Test Sauvegarder Etudiant \n");
+    int Tlog=5,ref=5623,ind;
+    printf("--Test Supprimer Etudiant \n");
     afficherInfoStage(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,Tlog,ref);
     printf("Supression de l'étudiant 138 dans ce stage\n");
-    SupprimeCandidature(Tab_Ref,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,Tlog,138,5623);
+    ind=rechercheStag(Tab_Ref,Tlog,5623);
+    SupprimeCandidature(Tab_Ref,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,Tlog,138,ind);
     afficherInfoStage(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,Tlog,ref);
+}
+
+//VERIFIED !!// 
+void testAccepteEtu(void){
+    int Tab_Etu[]={101,124,236,520};
+    float Tab_Note[]={-1,-1,-1,-1};
+    int Tab_RSta[]={-1,-1,-1,-1};
+    int Tab_Ref[]= {5008,2001,8000,5623,2388};
+    int Tab_Dep[]= {26,56,80,63,95};
+    int Tab_EtuAcc[]= {0,1,0,0,0};
+    int Tab_NCand[]={0,0,1,2,3};
+    int Tab_Cand1[]={0,0,101,138,101};
+    int Tab_Cand2[]={0,0,0,101,94};
+    int Tab_Cand3[]={0,0,0,0,458};
+    int TlogEtu=4,TlogSta=5,ind; 
+    printf("--Test Accepté Etudiant\n");
+    printf("Table des étudiants :\n");
+    afficheTabEnt(Tab_Etu,TlogEtu);
+    printf("Table des références de stages associés à l'étudiant\n");
+    afficheTabEnt(Tab_RSta,TlogEtu);
+    printf("affichage de tous les stages où l'étudiant 101 a fait des demandes :\n");
+    afficherInfoStage(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogSta,8000);
+    afficherInfoStage(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogSta,5623);
+    afficherInfoStage(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogSta,2388);
+    printf("Etudiant accepté dans le stage 8000, mise à jour des Stages :\n");
+    AccepteEtu(Tab_Etu,Tab_RSta,Tab_Ref,Tab_EtuAcc,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogEtu,TlogSta,8000,101);
+    afficherInfoStage(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogSta,8000);
+    afficherInfoStage(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogSta,5623);
+    afficherInfoStage(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogSta,2388);
+    printf("Table des références de stages associés à l'étudiant\n");
+    afficheTabEnt(Tab_RSta,TlogEtu);
 }
 
 int main(void){
@@ -256,7 +289,10 @@ int main(void){
     printf("\n\n");
     testajout();
     printf("\n\n");
-    */
     testSupprimeCandidature();
+    printf("\n\n");
+    testAccepteEtu();
+    printf("\n\n");
+    */
     return 0;
 }
