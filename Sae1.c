@@ -357,7 +357,52 @@ int ajoutNote(int Tab_Etu[],float Tab_Note[],int Tlog){
     Tab_Note[ind]=noteG;
     return 0;
 }
-
+int ajoutCand(int Tab_Etu[], int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tlog, int Tab,int Tab_Ref,int tailleM){
+    int ind, numEtu,refStage,trouve, nbCand=0,i;
+    printf("Quelle est votre numéro d'Etudiant ? (-1 pour quitter) \n");
+    scanf("%d",numEtu);
+    ind=recherche(Tab_Etu,Tlog,numEtu,&trouve);
+    while(trouve==0)
+    {
+        printf("Vous n'êtes pas enregistré en temps qu'Etudiant  \n");
+        printf("Quelle est votre numéro d'Etudiant ? (-1 pour quitter) \n");
+        scanf("%d",numEtu);
+        if(numEtu==-1)
+            exit(-1);
+        
+    }
+    printf("A quel stage voulez vous candidater ? \n");
+    scanf("%d",refStage);
+    ind=recherche(Tab_Ref,Tlog,refStage,&trouve);
+    while(trouve==0)
+    {
+        printf("Aucun stage avec cette référence \n");
+        printf("A quel stage voulez vous candidater ? (-1 pour quitter) \n");
+        scanf("%d",refStage);
+        if(numEtu==-1)
+            exit(-1);
+        
+    }
+    for(i=0;i<Tlog;i++)
+    {
+        if(numEtu==Tab_Cand1[i])
+            nbCand=nbCand+1;
+        if(numEtu==Tab_Cand2[i])
+            nbCand=nbCand+1;
+        if(numEtu==Tab_Cand3[i])
+            nbCand=nbCand+1;
+    }
+    if(nbCand==3)
+    {
+        printf("Vous avez déjà 3 candidatures");
+        exit(1);
+    }
+    decalerADroiteI(Tab_Ref,tailleM,refStage,&Tlog);
+    if(nbCand<3)
+        if(nbCand<2)
+            if(nbCand<1)
+                Tab_Cand3[]
+}
 /// @brief Fonction de sauvegarde des tables Tab_Etu/Rsta/Note dans le fichier Etudiant.don
 /// @param Tab_Etu Table contenant les Numéros des étudiants
 /// @param Tab_RSta Table contenant les Références du stage où les étudiants ont été acceptés 
