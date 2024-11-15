@@ -122,7 +122,7 @@ int inserer_etu(int Tab_Etu[],int Tab_RSta[],float Tab_Note[],int NEtu, int *Tlo
     return 0;
 }
 
-/// @brief Recherche d'un variable dans un tableau d'entiers
+/// @brief Recherche d'un variable dans un tableau d'entiers trié
 /// @param tab : Tableau dans lequel la recherche va être effectué
 /// @param taille : La taille logique du tableau
 /// @param val : la valeur à rechercher
@@ -274,6 +274,7 @@ void afficherInfoStage(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_N
     int trouve = 0;
     for (int i = 0; i < Tlog; i++) {
         if (Tab_Ref[i] == ref) {
+            printf("-------------------------------------------\n");
             printf("Informations du stage %d :\n", ref);
             printf("Département : %d\n", Tab_Dep[i]);
             printf("Pourvu : %s\n", Tab_EtuAcc[i] == 1 ? "Oui" : "Non");
@@ -289,6 +290,7 @@ void afficherInfoStage(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_N
             printf("\n");
             }
             trouve = 1;
+            printf("-------------------------------------------\n");
             break;
         }
     }
@@ -298,11 +300,11 @@ void afficherInfoStage(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_N
 }
 //Non vérifiée
 /// @brief Affiche les stages en fonction d'un critère donné (numéro de stage ou département)
-/// @param Tab_Ref Tableau des références de stages
-/// @param Tab_Dep Tableau des départements des stages
-/// @param Tlog Taille logique des tableaux
-/// @param critere Critère de recherche : numéro de stage ou département
-/// @param valeur Valeur à rechercher pour le critère
+/// @param Tab_Ref : Tableau des références de stages
+/// @param Tab_Dep : Tableau des départements des stages
+/// @param Tlog : Taille logique des tableaux
+/// @param critere : Critère de recherche : numéro de stage ou département
+/// @param valeur : Valeur à rechercher pour le critère
 void afficherStagesParCritere(int Tab_Ref[], int Tab_Dep[], int Tlog, char critere, int valeur) {
     if (critere == 'n') 
         printf("Recherche des stages par numéro = %d :\n", valeur);
@@ -316,10 +318,13 @@ void afficherStagesParCritere(int Tab_Ref[], int Tab_Dep[], int Tlog, char crite
 }
 //Non vérifiée
 /// @brief Affiche tous les stages auxquels un étudiant donné a candidaté.
-/// @param Tab_EtuCandidature Tableau des numéros d'étudiants ayant candidaté.
-/// @param Tab_RefCandidature Tableau des références des stages pour chaque candidature.
-/// @param TlogCandidature Taille logique du tableau de candidatures.
-/// @param Netu Numéro de l'étudiant à rechercher.
+/// @param Tab_EtuCand : Tableau des numéros d'étudiants ayant candidaté.
+/// @param Tab_RefCand : Tableau des références des stages pour chaque candidature.
+/// @param TlogCand : Taille logique du tableau de candidatures.
+/// @param Tab_Cand1 : Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand2 : Contient le deuxième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand3 : Contient le troisième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Netu : Numéro de l'étudiant à rechercher.
 void afficherCandidaturesEtudiant(int Tab_EtuCand[], int Tab_RefCand[], int TlogCand,int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[], int Netu) { // C'est pour l'affichage de toutes ses candidatures (pour l'élève)
     printf("Candidatures de l'étudiant %d :\n", Netu);
     int trouve = 0;
@@ -345,10 +350,10 @@ void afficherCandidaturesEtudiant(int Tab_EtuCand[], int Tab_RefCand[], int Tlog
 
 //Non vérifiée
 /// @brief Affiche le stage affecté à un étudiant donné, s'il y a lieu.
-/// @param Tab_Etu Tableau des étudiants.
-/// @param Tab_RSta Tableau des stages affectés à chaque étudiant.
-/// @param Tlog Taille logique des tableaux.
-/// @param Netu Numéro de l'étudiant à rechercher.
+/// @param Tab_Etu : Tableau des étudiants.
+/// @param Tab_RSta : Tableau des stages affectés à chaque étudiant.
+/// @param Tlog : Taille logique des tableaux.
+/// @param Netu : Numéro de l'étudiant à rechercher.
 void afficherStageAffecte(int Tab_Etu[], int Tab_RSta[], int Tlog, int Netu) {  // fonction pour l'affichage du stage qui est affecté à l'élève
     for (int i = 0; i < Tlog; i++) {
         if (Tab_Etu[i] == Netu) {
@@ -364,10 +369,10 @@ void afficherStageAffecte(int Tab_Etu[], int Tab_RSta[], int Tlog, int Netu) {  
 }
 //Non vérifiée
 /// @brief Affiche tous les stages d'un département donné.
-/// @param Tab_Ref Tableau des références de stages.
-/// @param Tab_Dep Tableau des départements associés à chaque stage.
-/// @param Tlog Taille logique des tableaux.
-/// @param dept Numéro du département à rechercher.
+/// @param Tab_Ref : Tableau des références de stages.
+/// @param Tab_Dep : Tableau des départements associés à chaque stage.
+/// @param Tlog : Taille logique des tableaux.
+/// @param dept : Numéro du département à rechercher.
 void afficherStagesParDepartement(int Tab_Ref[], int Tab_Dep[], int Tlog, int dept) {
     printf("Stages disponibles dans le département %d :\n", dept);
     int trouve = 0;
@@ -382,6 +387,34 @@ void afficherStagesParDepartement(int Tab_Ref[], int Tab_Dep[], int Tlog, int de
     }
 }
 
+/*
+void AccepteEtu(int Tab_Etu[],int Tab_Rsta[],int Tab_Ref[],int Tab_EtuAcc[],int TlogEtu,int TlogSta, ){
+}
+*/
+/// @brief Fonction qui supprime un candidat
+/// @param Tab_Ref : Tableau contenant les références des stages
+/// @param Tab_NCand : Tableau contenant les Départements des stages
+/// @param Tab_Cand1 : Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand2 : Contient le deuxième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand3 : Contient le troisième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tlog : Taille logique des tableaux
+/// @param etu : numéro de l'étudiant à supprimer
+/// @param stage : numéro du stage où l'étudiant est supprimé
+void SupprimeCandidature(int Tab_Ref[],int Tab_NCand[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Tlog,int etu,int stage){
+    int i,ind;
+    ind=rechercheStag(Tab_Ref,Tlog,stage);
+    if (Tab_Cand1[ind]==etu){
+        if(Tab_NCand[ind]>1)
+            Tab_Cand1[ind]=Tab_Cand2[ind];
+        if(Tab_NCand[ind]>2)
+            Tab_Cand2[ind]=Tab_Cand3[ind];
+    }
+    if (Tab_Cand2[ind]==etu){
+        if(Tab_NCand[ind]>2)
+            Tab_Cand2[ind]=Tab_Cand3[ind];
+    }
+    Tab_NCand[ind]=Tab_NCand[ind]-1;
+}
 
 /// @brief Fonction pour ajouter une note à un étudiant
 /// @param Tab_Etu : Tableau contenant les numéros etudiants
@@ -472,11 +505,3 @@ void sauvegardeOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand
     }
 }
 
-void global(void) {
-    int Tab_Ref[300], Tab_Dep[300], Tab_EtuAcc[300], Tab_Ncand[300], Tab_Cand1[300], Tab_Cand2[300], Tab_Cand3[300], Tmax=300, TlogEtu, TlogSta,  Tab_Etu[300],Tab_RSta[300], NEtu, val, ref,valeur, dept;
-    float Tab_Note[300];
-    char critere;
-    TlogEtu=chargementEtu(Tab_Etu,Tab_RSta,Tab_Note,Tmax ); /*respon , eleve,quittermenu etu*/
-    TlogSta=chargementOffre(Tab_Ref, Tab_Dep, Tab_EtuAcc, Tab_NCand, Tmax, Tab_Cand1, Tab_Cand2, Tab_Cand3){
-    menuChoix(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogSta, int Netu, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[])
-}

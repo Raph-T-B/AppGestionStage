@@ -187,7 +187,7 @@ void testSauvegarderOffre(void){
 }
 
 
-
+/*
 void test_afficherStagesParCritere(void) {
     int Tab_Ref[] = {101, 102, 103};
     int Tab_Dep[] = {10, 20, 10};
@@ -217,6 +217,22 @@ void test_afficherCandidaturesEtudiant() {
     printf("\nTest 3 : Étudiant non existant\n");
     afficherCandidaturesEtudiant(Tab_Etu, Tab_RSta, Tlog, etu_num);
 }
+*/
+void testSupprimeCandidature(void){
+    int Tab_Ref[]= {5008,2001,8000,5623,2388};
+    int Tab_Dep[]= {26,56,80,63,95};
+    int Tab_EtuAcc[]= {0,1,0,0,0};
+    int Tab_NCand[]={0,0,1,2,3};
+    int Tab_Cand1[]={0,0,138,138,870};
+    int Tab_Cand2[]={0,0,0,637,94};
+    int Tab_Cand3[]={0,0,0,0,458};
+    int Tlog=5,ref=5623;
+    printf("--Test Sauvegarder Etudiant \n");
+    afficherInfoStage(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,Tlog,ref);
+    printf("Supression de l'étudiant 138 dans ce stage\n");
+    SupprimeCandidature(Tab_Ref,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,Tlog,138,5623);
+    afficherInfoStage(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,Tlog,ref);
+}
 
 int main(void){
     /*
@@ -241,9 +257,6 @@ int main(void){
     testajout();
     printf("\n\n");
     */
-    testSauvegarderEtu();
-    printf("\n\n");
-    testSauvegarderOffre();
-    printf("\n\n");
+    testSupprimeCandidature();
     return 0;
 }
