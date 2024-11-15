@@ -320,19 +320,29 @@ void afficherStagesParCritere(int Tab_Ref[], int Tab_Dep[], int Tlog, char crite
 /// @param Tab_RefCandidature Tableau des références des stages pour chaque candidature.
 /// @param TlogCandidature Taille logique du tableau de candidatures.
 /// @param Netu Numéro de l'étudiant à rechercher.
-void afficherCandidaturesEtudiant(int Tab_EtuCandidature[], int Tab_RefCandidature[], int TlogCandidature, int Netu) { // C'est pour l'affichage de toutes ses candidatures (pour l'élève)
+void afficherCandidaturesEtudiant(int Tab_EtuCand[], int Tab_RefCand[], int TlogCand,int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[], int Netu) { // C'est pour l'affichage de toutes ses candidatures (pour l'élève)
     printf("Candidatures de l'étudiant %d :\n", Netu);
     int trouve = 0;
-    for (int i = 0; i < TlogCandidature; i++) {
-        if (Tab_EtuCandidature[i] == Netu) {
-            printf("Stage %d\n", Tab_RefCandidature[i]);
+    for (int i = 0; i < TlogCand; i++) {
+        if (Tab_Cand1[i] == Netu) { //prends les cand mais marche potentiellement pas si le tableau Tab_Cand1[0] n'est pas affecter à une valeur
+            printf("Stage %d\n", Tab_RefCand[i]);
+            trouve = 1;
+        }
+        if (Tab_Cand2[i] == Netu) {
+            printf("Stage %d\n", Tab_RefCand[i]);
+            trouve = 1;
+        }
+        if (Tab_Cand3[i] == Netu) {
+            printf("Stage %d\n", Tab_RefCand[i]);
             trouve = 1;
         }
     }
-    if (!trouve) {
+    if (trouve==0) {
         printf("Aucune candidature trouvée pour l'étudiant %d.\n", Netu);
     }
 }
+
+
 //Non vérifiée
 /// @brief Affiche le stage affecté à un étudiant donné, s'il y a lieu.
 /// @param Tab_Etu Tableau des étudiants.
@@ -462,74 +472,11 @@ void sauvegardeOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand
     }
 }
 
-/*
-char menuChoix(void)
-{
-  char id;
-  printf("Bienvenue sur votre système de gestion de stage, Êtes vous un Etudiant ou un Responsable de stages ? : E/R ");
-  scanf("%c%*c",&id);
-  while(id !="E" || id !="e" || id !="R" || id !="r")
-  {
-    printf("\n Erreur dans votre choix, veuillez recommencer\n")
-    printf("Bienvenue sur votre système de gestion de stage, Êtes vous un Etudiant ou un Responsable de stages ? : E/R ");
-    scanf("%c%*c",&id);
-  }
-  if(id=="E" || id =="e")
-    menuEtudiant();
-  if(id=="R" || id=="r")
-    menuResponsable();
+void global(void) {
+    int Tab_Ref[300], Tab_Dep[300], Tab_EtuAcc[300], Tab_Ncand[300], Tab_Cand1[300], Tab_Cand2[300], Tab_Cand3[300], Tmax=300, TlogEtu, TlogSta,  Tab_Etu[300],Tab_RSta[300], NEtu, val, ref,valeur, dept;
+    float Tab_Note[300];
+    char critere;
+    TlogEtu=chargementEtu(Tab_Etu,Tab_RSta,Tab_Note,Tmax ); /*respon , eleve,quittermenu etu*/
+    TlogSta=chargementOffre(Tab_Ref, Tab_Dep, Tab_EtuAcc, Tab_NCand, Tmax, Tab_Cand1, Tab_Cand2, Tab_Cand3){
+    menuChoix(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogSta, int Netu, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[])
 }
-
-void menuResponsable(void)
-{
-  int choix;
-  printf(" 1/ Affichage des stages avec candidature \n 2/ Affichage des stages sans candidature \n 3/ Liste des étudiants sans stages \n 4/ Informations sur un stage \n 5/ Recherche de stages \n 6/ Affectation d'un stage à un étudiant \n 7/ Ajout note de stage \n 9/ Quitter \n");
-  scanf("%d",&choix);
-  while (choix>7 && choix<9)
-  {
-    printf("Erreur, veuillez recommencer.\n");
-    printf(" 1/ Affichage des stages avec candidature \n 2/ Affichage des stages sans candidature \n 3/ Liste des étudiants sans stages \n 4/ Informations sur un stage \n 5/ Recherche de stages \n 6/ Affectation d'un stage à un étudiant \n 7/ Ajout note de stage \n 9/ Quitter \n");
-    scanf("%d",&choix);
-  }
-  if(choix==1)
-    fontion.;
-  if(choix==2)
-    fontion.;
-  if(choix==3)
-    fontion.;
-  if(choix==4)
-    fontion.;
-  if(choix==5)
-    fontion.;
-  if(choix==6)
-    fontion.;
-  if(choix==7)
-    fontion.;
-  if(choix==9)
-    exit(1);
-}
-
-
-
-void menuEtudiant(void)
-{
-  int choix;
-  printf(" 1/ Affichage de la liste des stages disponibles \n 2/ Affichage des candidatures \n 3/ Ajouter une candidature \n 9/ Quitter");
-  scanf("%d",&choix);
-  while(choix >3 && choix <9)
-  {
-    printf("Erreur, veuillez recommencer.\n");
-    printf(" 1/ Affichage de la liste des stages disponibles \n 2/ Affichage des candidatures \n 3/ Ajouter une candidature \n 9/ Quitter");
-    scanf("%d",&choix);
-  }
-  if(choix==1)
-    fontion.;
-  if(choix==2)
-    fontion.;
-  if(choix==3)
-    fontion.;
-  if(choix==9)
-    exit(1);
-}
-
-*/
