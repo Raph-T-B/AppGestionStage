@@ -188,6 +188,36 @@ void testSauvegarderOffre(void){
 
 
 
+void test_afficherStagesParCritere(void) {
+    int Tab_Ref[] = {101, 102, 103};
+    int Tab_Dep[] = {10, 20, 10};
+    int Tlog = 3;
+
+    printf("\nTest de afficherStagesParCritere (par numéro):\n");
+    afficherStagesParCritere(Tab_Ref, Tab_Dep, Tlog, 'n', 101);
+
+    printf("\nTest de afficherStagesParCritere (par département):\n");
+    afficherStagesParCritere(Tab_Ref, Tab_Dep, Tlog, 'd', 10);
+}
+
+void test_afficherCandidaturesEtudiant() {
+    int Tab_Etu[] = {101, 102, 103};
+    int Tab_RSta[] = {-1, 5008, 1061};
+    int Tlog = 3;
+    int etu_num = 102;
+
+    printf("Test 1 : Étudiant avec stage affecté\n");
+    afficherCandidaturesEtudiant(Tab_Etu, Tab_RSta, Tlog, etu_num);
+
+    etu_num = 101;
+    printf("\nTest 2 : Étudiant sans stage\n");
+    afficherCandidaturesEtudiant(Tab_Etu, Tab_RSta, Tlog, etu_num);
+
+    etu_num = 104;
+    printf("\nTest 3 : Étudiant non existant\n");
+    afficherCandidaturesEtudiant(Tab_Etu, Tab_RSta, Tlog, etu_num);
+}
+
 int main(void){
     /*
     testRecherche();
