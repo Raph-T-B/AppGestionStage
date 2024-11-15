@@ -320,7 +320,7 @@ void afficherStagesParCritere(int Tab_Ref[], int Tab_Dep[], int Tlog, char crite
 /// @param Tab_RefCandidature Tableau des références des stages pour chaque candidature.
 /// @param TlogCandidature Taille logique du tableau de candidatures.
 /// @param Netu Numéro de l'étudiant à rechercher.
-void afficherCandidaturesEtudiant(int Tab_EtuCand[], int Tab_RefCand[], int TlogCand,int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[], int Netu) { // C'est pour l'affichage de toutes ses candidatures (pour l'élève)
+void afficherCandidaturesEtudiant(int Tab_EtuCandidature[], int Tab_RefCand[], int TlogCand, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Netu) {
     printf("Candidatures de l'étudiant %d :\n", Netu);
     int trouve = 0;
     for (int i = 0; i < TlogCand; i++) {
@@ -476,7 +476,14 @@ void global(void) {
     int Tab_Ref[300], Tab_Dep[300], Tab_EtuAcc[300], Tab_Ncand[300], Tab_Cand1[300], Tab_Cand2[300], Tab_Cand3[300], Tmax=300, TlogEtu, TlogSta,  Tab_Etu[300],Tab_RSta[300], NEtu, val, ref,valeur, dept;
     float Tab_Note[300];
     char critere;
-    TlogEtu=chargementEtu(Tab_Etu,Tab_RSta,Tab_Note,Tmax ); /*respon , eleve,quittermenu etu*/
-    TlogSta=chargementOffre(Tab_Ref, Tab_Dep, Tab_EtuAcc, Tab_NCand, Tmax, Tab_Cand1, Tab_Cand2, Tab_Cand3){
-    menuChoix(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogSta, int Netu, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[])
+    FILE *flot;
+    flot=fopen("Etudiant.don","r");
+    TlogEtu=chargementEtu(Tab_Etu,Tab_RSta,Tab_Note,Tmax, flot); /*respon , eleve,quittermenu etu*/
+    flot=fopen("Stage.don","r");
+    TlogSta=chargementOffre(Tab_Ref, Tab_Dep, Tab_EtuAcc, Tab_Ncand, Tmax, Tab_Cand1, Tab_Cand2, Tab_Cand3, flot);
+    //menuChoix( Tab_Ref, Tab_EtuAcc, TlogEtu, TlogSta, NEtu, Tab_Cand1,Tab_Cand2,  Tab_Cand3, Tab_Ncand, Tab_Dep, Tab_Etu, Tab_RSta, Tab_Note);
+    sauvegardeOffre(Tab_Ref, Tab_Dep,Tab_EtuAcc,Tab_Ncand,TlogSta,Tab_Cand1,Tab_Cand2,Tab_Cand3,flot);
+    flot=fopen("Etudiant.don","r");
+    sauvegardeEtu(Tab_Etu,Tab_RSta, Tab_Note, TlogEtu,flot);
+    
 }

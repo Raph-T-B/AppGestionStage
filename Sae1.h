@@ -19,9 +19,9 @@ void afficherStagesNonPourvus(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], in
 void afficherEtudiantsSansStage(int Tab_Etu[], int Tab_RSta[], int Tlog);
 void afficherInfoStage(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_NCand[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[], int Tlog, int ref);
 void afficherStagesParCritere(int Tab_Ref[], int Tab_Dep[], int Tlog, char critere, int valeur);
-void afficherCandidaturesEtudiant(int Tab_EtuCandidature[], int Tab_RefCandidature[], int TlogCandidature, int Netu);
+void afficherCandidaturesEtudiant(int Tab_EtuCandidature[], int Tab_RefCand[], int TlogCand,int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Netu);
 void afficherStageAffecte(int Tab_Etu[], int Tab_RSta[], int Tlog, int Netu);
 void afficherStagesParDepartement(int Tab_Ref[], int Tab_Dep[], int Tlog, int dept);
-void menuResponsable(void);
+/*void menuResponsable(void);
 void menuEtudiant(void);
-char menuChoix(void);
+char menuChoix(void);*/
