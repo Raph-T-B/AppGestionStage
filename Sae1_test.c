@@ -205,8 +205,9 @@ void test_afficherCandidaturesEtudiant() {
     int Tab_RSta[] = {-1, 5008, 1061};
     int Tlog = 3;
     int etu_num = 102;
-
+    /a compléter
     printf("Test 1 : Étudiant avec stage affecté\n");
+    afficherCandidaturesEtudiant(Tab_EtuCandidature[], int Tab_RefCand[], int TlogCand, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Netu)
     afficherCandidaturesEtudiant(Tab_Etu, Tab_RSta, Tlog, etu_num);
 
     etu_num = 101;
