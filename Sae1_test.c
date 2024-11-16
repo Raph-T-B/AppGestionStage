@@ -187,38 +187,38 @@ void testSauvegarderOffre(void){
 }
 
 
-/*
+//VERIFIED !!//
 void test_afficherStagesParCritere(void) {
-    int Tab_Ref[] = {101, 102, 103};
-    int Tab_Dep[] = {10, 20, 10};
-    int Tlog = 3;
+    int Tab_Ref[]= {5008,2001,8000,5623,2388};
+    int Tab_Dep[]= {26,56,80,78,26};
+    int Tlog = 5;
 
-    printf("\nTest de afficherStagesParCritere (par numéro):\n");
-    afficherStagesParCritere(Tab_Ref, Tab_Dep, Tlog, 'n', 101);
+    printf("--Test de afficherStagesParCritere (par numéro):\n");
+    afficherStagesParCritere(Tab_Ref, Tab_Dep, Tlog, 'n', 5623);
 
-    printf("\nTest de afficherStagesParCritere (par département):\n");
-    afficherStagesParCritere(Tab_Ref, Tab_Dep, Tlog, 'd', 10);
+    printf("--Test de afficherStagesParCritere (par département):\n");
+    afficherStagesParCritere(Tab_Ref, Tab_Dep, Tlog, 'd', 26);
 }
 
+//VERIFIED !!// 
 void test_afficherCandidaturesEtudiant() {
-    int Tab_Etu[] = {101, 102, 103};
-    int Tab_RSta[] = {-1, 5008, 1061};
-    int Tlog = 3;
+    int Tab_Ref[]= {5008,2001,8000,5623,2388};
+    int Tab_NCand[]={0,0,1,2,3};
+    int Tab_Cand1[]={104,0,138,101,870};
+    int Tab_Cand2[]={0,104,0,637,101};
+    int Tab_Cand3[]={0,0,0,0,90};
+    int TlogCand = 5;
     int etu_num = 102;
-    /a compléter
     printf("Test 1 : Étudiant avec stage affecté\n");
-    afficherCandidaturesEtudiant(Tab_EtuCandidature[], int Tab_RefCand[], int TlogCand, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Netu)
-    afficherCandidaturesEtudiant(Tab_Etu, Tab_RSta, Tlog, etu_num);
-
+    afficherCandidaturesEtudiant(Tab_Ref,TlogCand,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,etu_num);
     etu_num = 101;
     printf("\nTest 2 : Étudiant sans stage\n");
-    afficherCandidaturesEtudiant(Tab_Etu, Tab_RSta, Tlog, etu_num);
-
+    afficherCandidaturesEtudiant(Tab_Ref,TlogCand,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,etu_num);
     etu_num = 104;
     printf("\nTest 3 : Étudiant non existant\n");
-    afficherCandidaturesEtudiant(Tab_Etu, Tab_RSta, Tlog, etu_num);
+    afficherCandidaturesEtudiant(Tab_Ref,TlogCand,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,etu_num);
 }
-*/
+
 //VERIFIED !!// 
 void testSupprimeCandidature(void){
     int Tab_Ref[]= {5008,2001,8000,5623,2388};
@@ -293,6 +293,10 @@ int main(void){
     testSupprimeCandidature();
     printf("\n\n");
     testAccepteEtu();
+    printf("\n\n");
+    test_afficherCandidaturesEtudiant();
+    printf("\n\n");
+    test_afficherStagesParCritere();
     printf("\n\n");
     */
     return 0;

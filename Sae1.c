@@ -298,7 +298,6 @@ void afficherInfoStage(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_N
         printf("Stage %d introuvable.\n", ref);
     }
 }
-//Non vérifiée
 /// @brief Affiche les stages en fonction d'un critère donné (numéro de stage ou département)
 /// @param Tab_Ref : Tableau des références de stages
 /// @param Tab_Dep : Tableau des départements des stages
@@ -307,18 +306,19 @@ void afficherInfoStage(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_N
 /// @param valeur : Valeur à rechercher pour le critère
 void afficherStagesParCritere(int Tab_Ref[], int Tab_Dep[], int Tlog, char critere, int valeur){
     int passe=0;
+    int i;
     if (critere == 'n') 
         printf("Recherche des stages par numéro = %d :\n", valeur);
     if (critere == 'd')
         printf("Recherche des stages par département = %d :\n", valeur);
-    for (int i = 0; i < Tlog; i++) {
+    for (i = 0; i < Tlog; i++) {
         if ((critere == 'n' && Tab_Ref[i] == valeur) || (critere == 'd' && Tab_Dep[i] == valeur)) {
             printf("Stage %d (Département %d)\n", Tab_Ref[i], Tab_Dep[i]);
             passe=passe+1;
         }
+    }
     if (passe==0)
         printf("Aucun stage trouvé avec ces critères \n");
-    }
 }
 //Non vérifiée
 void affichageToutStageAvecCandidature(int Tab_Ref[], int Tab_EtuAcc[], int Tlog, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[])
@@ -337,30 +337,37 @@ void affichageToutStageAvecCandidature(int Tab_Ref[], int Tab_EtuAcc[], int Tlog
                 printf("%d : %d ",Tab_Ref[i],Tab_Cand1[i]);
         }
 }
-//Non vérifiée
+
 /// @brief Affiche tous les stages auxquels un étudiant donné a candidaté.
-/// @param Tab_EtuCand : Tableau des numéros d'étudiants ayant candidaté.
 /// @param Tab_RefCand : Tableau des références des stages pour chaque candidature.
 /// @param TlogCand : Taille logique du tableau de candidatures.
+/// @param Tab_NCand : Tableau contenant les Départements des stages
 /// @param Tab_Cand1 : Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
 /// @param Tab_Cand2 : Contient le deuxième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
 /// @param Tab_Cand3 : Contient le troisième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
 /// @param Netu : Numéro de l'étudiant à rechercher.
-void afficherCandidaturesEtudiant(int Tab_EtuCand[], int Tab_RefCand[], int TlogCand,int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[], int Netu) { // C'est pour l'affichage de toutes ses candidatures (pour l'élève)
+void afficherCandidaturesEtudiant( int Tab_RefCand[], int TlogCand,int Tab_NCan[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[], int Netu) { // C'est pour l'affichage de toutes ses candidatures (pour l'élève)
     printf("Candidatures de l'étudiant %d :\n", Netu);
     int trouve = 0;
-    for (int i = 0; i < TlogCand; i++) {
-        if (Tab_Cand1[i] == Netu) { //prends les cand mais marche potentiellement pas si le tableau Tab_Cand1[0] n'est pas affecter à une valeur
-            printf("Stage %d\n", Tab_RefCand[i]);
-            trouve = 1;
+    int i;
+    for (i = 0; i < TlogCand; i++) {
+        if (Tab_NCan[i]>0){
+            if (Tab_Cand1[i] == Netu) { 
+                printf("Stage %d\n", Tab_RefCand[i]);
+                trouve = 1;
+            }
         }
-        if (Tab_Cand2[i] == Netu) {
-            printf("Stage %d\n", Tab_RefCand[i]);
-            trouve = 1;
+        if (Tab_NCan[i]>1){
+            if (Tab_Cand2[i] == Netu) {
+                printf("Stage %d\n", Tab_RefCand[i]);
+                trouve = 1;
+            }
         }
-        if (Tab_Cand3[i] == Netu) {
-            printf("Stage %d\n", Tab_RefCand[i]);
-            trouve = 1;
+        if (Tab_NCan[i]>2){
+            if (Tab_Cand3[i] == Netu) {
+                printf("Stage %d\n", Tab_RefCand[i]);
+                trouve = 1;
+            }
         }
     }
     if (trouve==0) {
@@ -521,6 +528,8 @@ int ajoutNote(int Tab_Etu[],float Tab_Note[],int Tlog){
     Tab_Note[ind]=noteG;
     return 0;
 }
+/*
+//Non vérifiée
 int ajoutCand(int Tab_Etu[], int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tlog, int Tab,int Tab_Ref,int tailleM){
     int ind, numEtu,refStage,trouve, nbCand=0,i;
     printf("Quelle est votre numéro d'Etudiant ? (-1 pour quitter) \n");
@@ -567,6 +576,7 @@ int ajoutCand(int Tab_Etu[], int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], 
             if(nbCand<1)
                 Tab_Cand3[]
 }
+*/
 /// @brief Fonction de sauvegarde des tables Tab_Etu/Rsta/Note dans le fichier Etudiant.don
 /// @param Tab_Etu Table contenant les Numéros des étudiants
 /// @param Tab_RSta Table contenant les Références du stage où les étudiants ont été acceptés 
@@ -605,7 +615,8 @@ void sauvegardeOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand
         
     }
 }
-
+/*
+//Non vérifiée
 int menuChoix(int Tab_Ref[], int Tab_EtuAcc[], int Tlog, int Netu, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[])
 {
   int id;
@@ -622,7 +633,7 @@ int menuChoix(int Tab_Ref[], int Tab_EtuAcc[], int Tlog, int Netu, int Tab_Cand1
   if(id==2)
     menuResponsable(Tab_Ref,  Tab_EtuAcc, Tlog, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tab_NCand, Tab_Dep,Tab_Etu,Tab_RSta,Tab_Note);
 }
-
+//Non vérifiée
 void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int Tlog, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[])
 {
   int choix;
@@ -669,7 +680,7 @@ void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int Tlog, int Tab_Cand1[],
 }
 
 
-
+//Non vérifiée
 void menuEtudiant(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tlog,int Netu, int Tab_Etu[])
 {
   int choix;
@@ -690,19 +701,19 @@ void menuEtudiant(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tlog,int N
   if(choix==9)
     exit(1);
 }
-
+//Non vérifiée
 void global(void) {
     int Tab_Ref[300], Tab_Dep[300], Tab_EtuAcc[300], Tab_Ncand[300], Tab_Cand1[300], Tab_Cand2[300], Tab_Cand3[300], Tmax=300, TlogEtu, TlogSta,  Tab_Etu[300],Tab_RSta[300], NEtu, val, ref,valeur, dept;
     float Tab_Note[300];
     char critere;
     FILE *flot;
     flot=fopen("Etudiant.don","r");
-    TlogEtu=chargementEtu(Tab_Etu,Tab_RSta,Tab_Note,Tmax, flot); /*respon , eleve,quittermenu etu*/
+    TlogEtu=chargementEtu(Tab_Etu,Tab_RSta,Tab_Note,Tmax, flot); //respon , eleve,quittermenu etu//
     flot=fopen("Stage.don","r");
     TlogSta=chargementOffre(Tab_Ref, Tab_Dep, Tab_EtuAcc, Tab_Ncand, Tmax, Tab_Cand1, Tab_Cand2, Tab_Cand3, flot);
     //menuChoix( Tab_Ref, Tab_EtuAcc, TlogEtu, TlogSta, NEtu, Tab_Cand1,Tab_Cand2,  Tab_Cand3, Tab_Ncand, Tab_Dep, Tab_Etu, Tab_RSta, Tab_Note);
     sauvegardeOffre(Tab_Ref, Tab_Dep,Tab_EtuAcc,Tab_Ncand,TlogSta,Tab_Cand1,Tab_Cand2,Tab_Cand3,flot);
     flot=fopen("Etudiant.don","r");
     sauvegardeEtu(Tab_Etu,Tab_RSta, Tab_Note, TlogEtu,flot);
-    
 }
+*/

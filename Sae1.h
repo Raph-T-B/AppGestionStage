@@ -94,7 +94,6 @@ void afficherEtudiantsSansStage(int Tab_Etu[], int Tab_RSta[], int Tlog);
 /// @param Tlog : taille logique du tableau
 /// @param ref : référence de stage pour lequel on cherche des informations
 void afficherInfoStage(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_NCand[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[], int Tlog, int ref);
-//Non vérifiée
 /// @brief Affiche les stages en fonction d'un critère donné (numéro de stage ou département)
 /// @param Tab_Ref : Tableau des références de stages
 /// @param Tab_Dep : Tableau des départements des stages
@@ -104,16 +103,15 @@ void afficherInfoStage(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tab_N
 void afficherStagesParCritere(int Tab_Ref[], int Tab_Dep[], int Tlog, char critere, int valeur);
 //Non vérifiée
 void affichageToutStageAvecCandidature(int Tab_Ref[], int Tab_EtuAcc[], int Tlog, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[]);
-//Non vérifiée
 /// @brief Affiche tous les stages auxquels un étudiant donné a candidaté.
-/// @param Tab_EtuCand : Tableau des numéros d'étudiants ayant candidaté.
 /// @param Tab_RefCand : Tableau des références des stages pour chaque candidature.
 /// @param TlogCand : Taille logique du tableau de candidatures.
+/// @param Tab_NCand : Tableau contenant les Départements des stages
 /// @param Tab_Cand1 : Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
 /// @param Tab_Cand2 : Contient le deuxième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
 /// @param Tab_Cand3 : Contient le troisième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
 /// @param Netu : Numéro de l'étudiant à rechercher.
-void afficherCandidaturesEtudiant(int Tab_EtuCand[], int Tab_RefCand[], int TlogCand,int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[], int Netu);
+void afficherCandidaturesEtudiant(int Tab_RefCand[], int TlogCand,int Tab_NCand[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[], int Netu);
 //Non vérifiée
 /// @brief Affiche le stage affecté à un étudiant donné, s'il y a lieu.
 /// @param Tab_Etu : Tableau des étudiants.
@@ -159,7 +157,7 @@ void SupprimeCandidature(int Tab_Ref[],int Tab_NCand[],int Tab_Cand1[],int Tab_C
 /// @return : -1 si le programme a été arrété, 0 s'il a fontionné
 int ajoutNote(int Tab_Etu[],float Tab_Note[],int Tlog);
 //Non vérifiée
-int ajoutCand(int Tab_Etu[], int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tlog, int Tab,int Tab_Ref,int tailleM){
+int ajoutCand(int Tab_Etu[], int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tlog, int Tab,int Tab_Ref,int tailleM);
 /// @brief Fonction de sauvegarde des tables Tab_Etu/Rsta/Note dans le fichier Etudiant.don
 /// @param Tab_Etu Table contenant les Numéros des étudiants
 /// @param Tab_RSta Table contenant les Références du stage où les étudiants ont été acceptés 
