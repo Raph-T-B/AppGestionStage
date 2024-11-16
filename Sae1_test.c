@@ -434,6 +434,50 @@ void testMenuChoix() {
     // Appel de la fonction menuChoix
     menuChoix(Tab_Ref, Tab_EtuAcc,TlogEtu, TlogCan, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tab_NCand, Tab_Dep, Tab_Etu, Tab_RSta, Tab_Note,tailleM);
 }
+
+//pas vérifier
+void test_global(void) {
+    FILE *flot ;
+    flot = fopen("Etudiant.don", "r");
+    if (flot!=NULL) {
+        printf("Erreur lors de la lecture du fichier Etudiant.don");
+        return;
+    }
+    fclose(flot);
+    FILE *fe ;
+    fe = fopen("Stage.don", "r");
+    if (fe!=NULL) {
+        printf("Erreur lors de la lecture du fichier Stage.don");
+        return;
+    }
+    fclose(fe);
+    global();
+    printf("Test de la fonction 'global' terminé.\n");
+}
+
+//pas vérifier
+void test_affichageToutStageAvecCandidature(void) {
+    int Tab_Ref[]= {5008,2001,8000,5623};
+    int Tab_EtuAcc[]= {0,1,0,1};
+    int Tab_Cand1[5] = {1, 2, 3, 4, 5};
+    int Tab_Cand2[5] = {2, 3, 4, 5, 6};
+    int Tab_Cand3[5] = {3, 4, 5, 6, 7};
+    int Tab_NCand[5] = {3, 2, 1, 0, 0}; // Nombre de candidatures
+    int Tlog = 4;
+    printf("Test de la fonction affichageToutStageAvecCandidature:\n");
+    affichageToutStageAvecCandidature(Tab_Ref, Tab_EtuAcc, Tlog, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tab_NCand);
+}
+
+
+void test_afficherStageAffecte(void) {
+    int Tab_Etu[5] = {1, 2, 3, 4, 5};
+    int Tab_RSta[5] = {101, 102, -1, 104, 105};  // -1 signifie aucun stage affecté
+    int Tlog = 5;
+    int Netu = 3;
+    printf("Test de la fonction afficherStageAffecte:\n");
+    afficherStageAffecte(Tab_Etu, Tab_RSta, Tlog, Netu);
+}
+
 int main(void){
     testMenuChoix();
     /*
@@ -468,9 +512,10 @@ int main(void){
     printf("\n\n");
     test_afficherStagesParCritere();
     printf("\n\n");
-    *testajoutOffre();
+    testajoutOffre();
+    test_global();
+    printf("\n1\n");
+    test_affichageToutStageAvecCandidature();
     */
-    
-
     return 0;
 }
