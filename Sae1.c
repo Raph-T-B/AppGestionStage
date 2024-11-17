@@ -832,7 +832,7 @@ void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogCan, 
   if(choix==1)
     affichageToutStageAvecCandidature(Tab_Ref,Tab_EtuAcc, TlogCan, Tab_Cand1, Tab_Cand2, Tab_Cand3,Tab_NCand);
   if(choix==2)
-    afficherStagesPourvus(Tab_Ref, Tab_Dep, Tab_EtuAcc, Tab_Etu, Tab_RSta, TlogCan);
+    afficherStagesNonPourvus(Tab_Ref,Tab_Dep,Tab_EtuAcc,TlogCan);
   if(choix==3)
     afficherEtudiantsSansStage(Tab_Etu,Tab_RSta,TlogEtu);
   if(choix==4){
@@ -842,7 +842,7 @@ void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogCan, 
   }
   if(choix==5){
     printf("Voulez vous chercher un stage par numéro ou departement ? : n/d");
-    scanf("%c",&critere);
+    scanf("%*c%c",&critere);
     if(critere=='n')
     {
         printf("Donner la ref du stage que vous voulez chercher : ");
