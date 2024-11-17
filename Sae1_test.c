@@ -471,7 +471,7 @@ void test_affichageToutStageAvecCandidature(void) {
 void testAfficherStagesParDepartement() {
     // Valeurs de test
     int Tab_Ref[] = {5008, 2001, 8000, 5623};
-    int Tab_Dep[] = {1, 2, 1, 3};
+    int Tab_Dep[] = {1, 2, 3, 3};
     int Tlog = 4;  
     printf("Test 1: Département 3\n");
     afficherStagesParDepartement(Tab_Ref, Tab_Dep, Tlog, 3);  // Département 3
@@ -530,7 +530,8 @@ int main(void){
     printf("\n1\n");
     test_affichageToutStageAvecCandidature();
     test_afficherStageAffecte();
-    testAfficherStagesParDepartement();
     */
+    testAfficherStagesParDepartement();
+    
     return 0;
 }
