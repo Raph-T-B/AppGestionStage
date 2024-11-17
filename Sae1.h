@@ -195,7 +195,8 @@ void sauvegardeOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand
 /// @param Tab_Etu Table contenant les Numéros des étudiants
 /// @param Tab_RSta Table contenant les Références du stage où les étudiants ont été acceptés 
 /// @param Tab_Note Table contenant les Notes des etudiants reçue durant leur stage
-void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int Tlog, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[]);
+/// @param tailleM Taille maximal des tableaux.
+void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int Tlog, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[],int tailleM);
 /// @brief Menu etudiant qui lui affiche les différentes action réalisable.
 /// @param Tab_Ref Tableau contenant les Références des stages
 /// @param Tab_Dep Tableau contenant le departement des stages
@@ -217,8 +218,9 @@ void menuEtudiant(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tlog,int N
 /// @param Tab_Etu Table contenant les Numéros des étudiants
 /// @param Tab_RSta Table contenant les Références du stage où les étudiants ont été acceptés 
 /// @param Tab_Note Table contenant les Notes des etudiants reçue durant leur stage
+/// @param tailleM Taille maximal des tableaux.
 /// @return 1 si Etudiant et 2 si responsable
-int menuChoix(int Tab_Ref[], int Tab_EtuAcc[], int Tlog, int Netu, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[]);
+int menuChoix(int Tab_Ref[], int Tab_EtuAcc[], int Tlog, int Netu, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[],int tailleM);
 /// @brief Fonction permettant la mise en relation de toute les autres fonction.
 /// @param void /
 void global(void);

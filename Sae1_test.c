@@ -267,7 +267,7 @@ void testAccepteEtu(void){
     printf("Table des références de stages associés à l'étudiant\n");
     afficheTabEnt(Tab_RSta,TlogEtu);
 }
-
+/* a refaire
 void testajoutCand() {
     int Tab_Etu[5] = {101, 102, 103, 104, 105};  
     int Tab_Cand1[10] = {0,0,0,0,0,0,0,0,0,0};  
@@ -353,10 +353,31 @@ void testajoutCand() {
     }
 
 }
+*/
+void testMenuChoix() {
+    // Initialisation des tableaux et des variables
+    int Tab_Ref[10] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
+    int Tab_EtuAcc[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    int Tab_Cand1[10] = {0};
+    int Tab_Cand2[10] = {0};
+    int Tab_Cand3[10] = {0};
+    int Tab_NCand[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    int Tab_Dep[10] = {30,64,64,64,02,03,82,92,15,64};
+    int Tab_Etu[10] = {101,102, 103, 104, 105, 106, 107, 108, 109, 110};
+    int Tab_RSta[10] = {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
+    float Tab_Note[10] = {12.5, 14.3, 11.0, 16.7, 13.5, 10.2, 18.0, 9.3, 15.0, 17.5};
 
+    int Tlog = 10;
+    int Netu = 101;
+    int tailleM=100;
+
+    // Appel de la fonction menuChoix
+    menuChoix(Tab_Ref, Tab_EtuAcc, Tlog, Netu, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tab_NCand, Tab_Dep, Tab_Etu, Tab_RSta, Tab_Note,tailleM);
+}
 int main(void){
-    testajoutCand();
+    testMenuChoix();
     /*
+    testajoutCand();
     testRecherche();
     printf("\n\n");
     testAfficherStagesPourvus();
