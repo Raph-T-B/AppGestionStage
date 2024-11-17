@@ -166,7 +166,7 @@ void SupprimeCandidature(int Tab_Ref[],int Tab_NCand[],int Tab_Cand1[],int Tab_C
 /// @return : -1 si le programme a été arrété, 0 s'il a fontionné
 int ajoutNote(int Tab_Etu[],float Tab_Note[],int Tlog);
 //Non vérifiée
-int ajoutCand(int Tab_Etu[], int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tlog, int Tab_NCand[],int Tab_Ref[],int tailleM);
+int ajoutCand(int Tab_Etu[], int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int TlogEtu,int TlogCan, int Tab_NCand[],int Tab_Ref[],int tailleM);
 /// @brief Fonction pour ajouter une offre
 /// @param Tab_Ref : Tableau contenant les références des stages
 /// @param Tab_Dep : Tableau contenant les départements des stages
@@ -194,7 +194,8 @@ void sauvegardeOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand
 /// @brief Menu responsable qui lui affiche les différentes action réalisable.
 /// @param Tab_Ref Tableau contenant les Références des stages
 /// @param Tab_EtuAcc Tableau contenant si un stage a accépté un étudiant
-/// @param Tlog Taille logique de ces tableaux
+/// @param TlogEtu Taille logique des ableaux associès aux etudiants
+/// @param TlogCan Taille logique des tableaux associès aux stages
 /// @param Tab_Cand1 Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
 /// @param Tab_Cand2 Contient le deuxieme numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
 /// @param Tab_Cand3 Contient le troisieme numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
@@ -204,20 +205,29 @@ void sauvegardeOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand
 /// @param Tab_RSta Table contenant les Références du stage où les étudiants ont été acceptés 
 /// @param Tab_Note Table contenant les Notes des etudiants reçue durant leur stage
 /// @param tailleM Taille maximal des tableaux.
-void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int Tlog, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[],int tailleM);
+void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogCan, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[],int tailleM,int *quit);
 /// @brief Menu etudiant qui lui affiche les différentes action réalisable.
 /// @param Tab_Ref Tableau contenant les Références des stages
 /// @param Tab_Dep Tableau contenant le departement des stages
 /// @param Tab_EtuAcc Tableau contenant si un stage a accépté un étudiant
-/// @param Tlog Taille logique de ces tableaux
+/// @param TlogEtu Taille logique des ableaux associès aux etudiants
+/// @param TlogCan Taille logique des tableaux associès aux stages
 /// @param Netu Numéro etudiant
 /// @param Tab_Etu Table contenant les Numéros des étudiants
-void menuEtudiant(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tlog,int Netu, int Tab_Etu[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Tab_NCand[]);
+void menuEtudiant(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int TlogEtu, int TlogCan,int Netu, int Tab_Etu[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Tab_NCand[],int *quit);
+/// @brief Lit le fichier .mdpRespo pour avoir le mdp
+/// @return le mdp décrypté
+int OuvrmdpRespo(void);
+/// @brief Met le mot de passe du respo dans le fichier .mdpRespo et le crypte
+/// @param motdp : mdp à changer
+void SauvmdpRespo(int motdp);
+/// @brief Fonction de changement du mdp respo 
+void changerMDP(void);
 /// @brief Menu qui permet de designer si nous sommes un etudiant ou un responsable de stage.
 /// @param Tab_Ref Tableau contenant les Références des stages
 /// @param Tab_EtuAcc Tableau contenant si un stage a accépté un étudiant
-/// @param Tlog Taille logique de ces tableaux
-/// @param Netu le numero etudiant
+/// @param TlogEtu Taille logique des ableaux associès aux etudiants
+/// @param TlogCan Taille logique des tableaux associès aux stages
 /// @param Tab_Cand1 Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
 /// @param Tab_Cand2 Contient le deuxieme numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
 /// @param Tab_Cand3 Contient le troisieme numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
@@ -228,7 +238,8 @@ void menuEtudiant(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tlog,int N
 /// @param Tab_Note Table contenant les Notes des etudiants reçue durant leur stage
 /// @param tailleM Taille maximal des tableaux.
 /// @return 1 si Etudiant et 2 si responsable
-int menuChoix(int Tab_Ref[], int Tab_EtuAcc[], int Tlog, int Netu, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[],int tailleM);
+int menuChoix(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu,int TlogCan, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[],int tailleM);
 /// @brief Fonction permettant la mise en relation de toute les autres fonction.
 /// @param void /
+
 void global(void);

@@ -428,12 +428,11 @@ void testMenuChoix() {
     int Tab_RSta[10] = {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
     float Tab_Note[10] = {12.5, 14.3, 11.0, 16.7, 13.5, 10.2, 18.0, 9.3, 15.0, 17.5};
 
-    int Tlog = 10;
-    int Netu = 101;
+    int TlogCan = 10,TlogEtu=10;
     int tailleM=100;
 
     // Appel de la fonction menuChoix
-    menuChoix(Tab_Ref, Tab_EtuAcc, Tlog, Netu, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tab_NCand, Tab_Dep, Tab_Etu, Tab_RSta, Tab_Note,tailleM);
+    menuChoix(Tab_Ref, Tab_EtuAcc,TlogEtu, TlogCan, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tab_NCand, Tab_Dep, Tab_Etu, Tab_RSta, Tab_Note,tailleM);
 }
 int main(void){
     testMenuChoix();
@@ -469,8 +468,9 @@ int main(void){
     printf("\n\n");
     test_afficherStagesParCritere();
     printf("\n\n");
+    *testajoutOffre();
     */
-    testajoutOffre();
+    
 
     return 0;
 }
