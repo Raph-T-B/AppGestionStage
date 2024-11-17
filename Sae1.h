@@ -164,7 +164,17 @@ void SupprimeCandidature(int Tab_Ref[],int Tab_NCand[],int Tab_Cand1[],int Tab_C
 /// @param Tlog : Taille logique du tableau
 /// @return : -1 si le programme a été arrété, 0 s'il a fontionné
 int ajoutNote(int Tab_Etu[],int Tab_RSta[],float Tab_Note[],int Tlog);
-//Non vérifiée
+/// @brief Ajout d'une candidature a un stage si les conditions sont remplis.
+/// @param Tab_Etu : Tableau contenant les numéros etudiants
+/// @param Tab_Cand1 : Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe).
+/// @param Tab_Cand2  : Contient le deuxieme numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe).
+/// @param Tab_Cand3 : Contient le troisieme numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe).
+/// @param TlogEtu Taille logique des ableaux associès aux etudiants
+/// @param TlogCan Taille logique des tableaux associès aux stages
+/// @param Tab_NCand : Tableau contenant le nombre de candidature pour un stage.
+/// @param Tab_Ref : Tableau contenant la référence pour chaque stage.
+/// @param Netu : Numéro de l'étudiant
+/// @return : -1 si le programme a été arrété, 0 s'il a fontionné.
 int ajoutCand(int Tab_Etu[], int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int TlogEtu,int TlogCan, int Tab_NCand[],int Tab_Ref[],int tailleM);
 /// @brief Fonction pour ajouter une offre
 /// @param Tab_Ref : Tableau contenant les références des stages
@@ -214,7 +224,12 @@ void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogCan, 
 /// @param TlogCan Taille logique des tableaux associès aux stages
 /// @param Netu Numéro etudiant
 /// @param Tab_Etu Table contenant les Numéros des étudiants
-void menuEtudiant(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int TlogEtu, int TlogCan,int Netu, int Tab_Etu[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Tab_NCand[],int tailleM,int *quit);
+/// @param Tab_Cand1 Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand2 Contient le deuxieme numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand3 Contient le troisieme numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_NCand Tableau contenant le nombre de candidature d'étudiants
+/// @param quit variable pour savoir si on veux quitter le menu
+void menuEtudiant(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int TlogEtu, int TlogCan,int Netu, int Tab_Etu[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Tab_NCand[],int *quit);
 /// @brief Lit le fichier .mdpRespo pour avoir le mdp
 /// @return le mdp décrypté
 int OuvrmdpRespo(void);

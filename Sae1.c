@@ -586,6 +586,8 @@ int ajoutOffre(int Tab_Ref[],int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[],int 
     return 0;
 }
 
+
+
 /// @brief Ajout d'une candidature a un stage si les conditions sont remplis.
 /// @param Tab_Etu : Tableau contenant les numéros etudiants
 /// @param Tab_Cand1 : Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe).
@@ -785,7 +787,7 @@ int menuChoix(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogCan, int Tab
   while (quit!=0){
     if(id=='E'){
         printf("##---------------------##\n");
-        menuEtudiant( Tab_Ref,  Tab_Dep, Tab_EtuAcc, TlogEtu, TlogCan, Netu, Tab_Etu, Tab_Cand1,Tab_Cand2,Tab_Cand3,Tab_NCand,tailleM,&quit);
+        menuEtudiant( Tab_Ref,  Tab_Dep, Tab_EtuAcc, TlogEtu, TlogCan, Netu, Tab_Etu, Tab_Cand1,Tab_Cand2,Tab_Cand3,Tab_NCand,&quit);
     }
     if(id=='R'){
         printf("##---------------------##\n");
@@ -861,6 +863,9 @@ void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogCan, 
     *quit=0;
 }
 
+
+
+
 /// @brief Menu etudiant qui lui affiche les différentes action réalisable.
 /// @param Tab_Ref Tableau contenant les Références des stages
 /// @param Tab_Dep Tableau contenant le departement des stages
@@ -869,9 +874,12 @@ void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogCan, 
 /// @param TlogCan Taille logique des tableaux associès aux stages
 /// @param Netu Numéro etudiant
 /// @param Tab_Etu Table contenant les Numéros des étudiants
-/// @param tailleM Taille maximum des tableaux
+/// @param Tab_Cand1 Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand2 Contient le deuxieme numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand3 Contient le troisieme numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_NCand Tableau contenant le nombre de candidature d'étudiants
 /// @param quit variable pour savoir si on veux quitter le menu
-void menuEtudiant(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int TlogEtu, int TlogCan,int Netu, int Tab_Etu[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Tab_NCand[],int tailleM,int *quit)
+void menuEtudiant(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int TlogEtu, int TlogCan,int Netu, int Tab_Etu[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Tab_NCand[],int *quit)
 {
   int choix;
   printf(" 1/ Affichage de la liste des stages disponibles \n 2/ Affichage des candidatures \n 3/ Ajouter une candidature \n 9/ Quitter\nVotre Réponse : ");
