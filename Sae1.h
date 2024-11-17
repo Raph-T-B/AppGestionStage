@@ -121,14 +121,12 @@ void affichageToutStageAvecCandidature(int Tab_Ref[], int Tab_EtuAcc[], int Tlog
 /// @param Tab_Cand3 : Contient le troisième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
 /// @param Netu : Numéro de l'étudiant à rechercher.
 void afficherCandidaturesEtudiant(int Tab_RefCand[], int TlogCand,int Tab_NCand[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[], int Netu);
-//Non vérifiée
 /// @brief Affiche le stage affecté à un étudiant donné, s'il y a lieu.
 /// @param Tab_Etu : Tableau des étudiants.
 /// @param Tab_RSta : Tableau des stages affectés à chaque étudiant.
 /// @param Tlog : Taille logique des tableaux.
 /// @param Netu : Numéro de l'étudiant à rechercher.
 void afficherStageAffecte(int Tab_Etu[], int Tab_RSta[], int Tlog, int Netu);
-//Non vérifiée
 /// @brief Affiche tous les stages d'un département donné.
 /// @param Tab_Ref : Tableau contenant les références des stages
 /// @param Tab_Dep : Tableau des départements associés à chaque stage.
@@ -161,10 +159,11 @@ void accepteEtu(int Tab_Etu[],int Tab_Rsta[],int Tab_Ref[],int Tab_EtuAcc[],int 
 void SupprimeCandidature(int Tab_Ref[],int Tab_NCand[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Tlog,int etu,int ind);
 /// @brief Fonction pour ajouter une note à un étudiant
 /// @param Tab_Etu : Tableau contenant les numéros etudiants
+/// @param Tab_RSta : Tableau contenant les références des stages attribué aux étudiants
 /// @param Tab_Note : Tableau contenant les notes des etudiants
 /// @param Tlog : Taille logique du tableau
 /// @return : -1 si le programme a été arrété, 0 s'il a fontionné
-int ajoutNote(int Tab_Etu[],float Tab_Note[],int Tlog);
+int ajoutNote(int Tab_Etu[],int Tab_RSta[],float Tab_Note[],int Tlog);
 //Non vérifiée
 int ajoutCand(int Tab_Etu[], int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int TlogEtu,int TlogCan, int Tab_NCand[],int Tab_Ref[],int tailleM);
 /// @brief Fonction pour ajouter une offre
@@ -241,6 +240,4 @@ void changerMDP(void);
 /// @return 1 si Etudiant et 2 si responsable
 int menuChoix(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu,int TlogCan, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[],int tailleM);
 /// @brief Fonction permettant la mise en relation de toute les autres fonction.
-/// @param void /
-
 void global(void);

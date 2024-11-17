@@ -161,6 +161,7 @@ void testAfficherInfoStage(void){
 //VERIFIED !!// 
 void testajoutNote(void){
     int Tab_Etu[]={2834,4933,4384,2368,1839};
+    int Tab_RSta[]={2001,-1,5623,-1};
     float Tab_Note[]={-1,-1,-1,-1,-1};
     int cont=0,sort=0,i=0;
     for(i=0;i<5;i++)
@@ -170,7 +171,7 @@ void testajoutNote(void){
     printf("############### Possibilité d'exécuter une batterire de test ###############\n");
     printf("\n");
     while(cont!=-1){
-        sort=ajoutNote(Tab_Etu,Tab_Note,5);
+        sort=ajoutNote(Tab_Etu,Tab_RSta,Tab_Note,5);
         if (sort==-1)
             printf("Vous êtes bien sortis de la fonction\n");
         if (sort==0)
@@ -328,94 +329,30 @@ void testAccepteEtu(void){
     printf("Table des références de stages associés à l'étudiant\n");
     afficheTabEnt(Tab_RSta,TlogEtu);
 }
-/* a refaire
-void testajoutCand() {
-    int Tab_Etu[5] = {101, 102, 103, 104, 105};  
-    int Tab_Cand1[10] = {0,0,0,0,0,0,0,0,0,0};  
-    int Tab_Cand2[10] = {0,0,0,0,0,0,0,0,0,0};  
-    int Tab_Cand3[10] = {0,0,0,0,0,0,0,0,0,0};  
-    int Tab_NCand[10] = {0,0,0,0,0,0,0,0,0,0}; 
-    int Tab_Ref[5] = {10, 11, 12, 13, 14};  
-    int Tlog = 10;  
-    int tailleM = 100;  
-    int numEtu, refStage;
 
-    printf("Test 1: Ajout de la candidature pour l'étudiant 101 au stage 10\n");
-    numEtu = 101;
-    refStage = 10;
-    int result = ajoutCand(Tab_Etu, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tlog, Tab_NCand, Tab_Ref, tailleM);
-    
-    if (result == 0) {
-        printf("Test réussi: Candidature ajoutée.\n");
-    } else {
-        printf("Test échoué: Erreur lors de l'ajout.\n");
-    }
-    ajoutCand(Tab_Etu, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tlog, Tab_NCand, Tab_Ref, tailleM);
-    printf("Tab_Cand1: ");
-    for (int i = 0; i < Tlog; i++) {
-        printf("%d ", Tab_Cand1[i]);
-    }
-    printf("\n");
 
-    printf("Test 2: Ajout de la candidature pour l'étudiant 102 au stage 11\n");
-    numEtu = 102;
-    refStage = 11;
-    result = ajoutCand(Tab_Etu, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tlog, Tab_NCand, Tab_Ref, tailleM);
-
-    if (result == 0) {
-        printf("Test réussi: Candidature ajoutée.\n");
-    } else {
-        printf("Test échoué: Erreur lors de l'ajout.\n");
-    }
-
-    printf("Tab_Cand1: ");
-    for (int i = 0; i < Tlog; i++) {
-        printf("%d ", Tab_Cand1[i]);
-    }
-    printf("\n");
-
-    printf("Test 3: Essayer d'ajouter un étudiant qui a déjà 3 candidatures\n");
-    numEtu = 101;
-    refStage = 12; 
-    result = ajoutCand(Tab_Etu, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tlog, Tab_NCand, Tab_Ref, tailleM);
-    
-    if (result == 0) {
-        printf("Test réussi: Candidature ajoutée.\n");
-    } else {
-        printf("Test échoué: Erreur lors de l'ajout.\n");
-    }
-    printf("Tab_Cand1: ");
-    for (int i = 0; i < Tlog; i++) {
-        printf("%d ", Tab_Cand1[i]);
-    }
-    printf("\n");
-
-    printf("Tab_Cand2: ");
-    for (int i = 0; i < Tlog; i++) {
-        printf("%d ", Tab_Cand2[i]);
-    }
-    printf("\n");
-
-    printf("Tab_Cand3: ");
-    for (int i = 0; i < Tlog; i++) {
-        printf("%d ", Tab_Cand3[i]);
-    }
-    printf("\n");
-
-    printf("Test 4: Tester l'ajout d'un étudiant ayant déjà 3 candidatures\n");
-    numEtu = 101;
-    refStage = 13; 
-    result = ajoutCand(Tab_Etu, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tlog, Tab_NCand, Tab_Ref, tailleM);
-
-    if (result == 0) {
-        printf("Test réussi: Candidature ajoutée.\n");
-    } else {
-        printf("Test échoué: Erreur lors de l'ajout.\n");
-    }
-
+void testAjoutCand(void) {
+    // Initialisation des tableaux et des variables
+    int Tab_Ref[10] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
+    int Tab_EtuAcc[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    int Tab_Cand1[10] = {0};
+    int Tab_Cand2[10] = {0};
+    int Tab_Cand3[10] = {0};
+    int Tab_NCand[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    int Tab_Dep[10] = {30,64,64,64,02,03,82,92,15,64};
+    int Tab_Etu[10] = {101,102, 103, 104, 105, 106, 107, 108, 109, 110};
+    int Tab_RSta[10] = {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
+    float Tab_Note[10] = {12.5, 14.3, 11.0, 16.7, 13.5, 10.2, 18.0, 9.3, 15.0, 17.5};
+    int TlogCan = 10,TlogEtu=10;
+    int tailleM=100;
+    affichageToutStageAvecCandidature(Tab_Ref,Tab_EtuAcc,TlogCan,Tab_Cand1,Tab_Cand2,Tab_Cand3,Tab_NCand);
+    printf("##---------------------##\n");
+    ajoutCand(Tab_Etu,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogEtu,TlogCan,Tab_NCand,Tab_Ref,101);
+    printf("##---------------------##\n");
+    affichageToutStageAvecCandidature(Tab_Ref,Tab_EtuAcc,TlogCan,Tab_Cand1,Tab_Cand2,Tab_Cand3,Tab_NCand);
 }
-*/
-void testMenuChoix() {
+
+void testMenuChoix(void) {
     // Initialisation des tableaux et des variables
     int Tab_Ref[10] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
     int Tab_EtuAcc[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -492,10 +429,11 @@ void test_afficherStageAffecte(void) {
 }
 
 int main(void){
-    testMenuChoix();
-    testAccepteEtu();
     /*
+    testMenuChoix();
+    printf("\n\n");
     testajoutCand();
+    printf("\n\n");
     testRecherche();
     printf("\n\n");
     testRechercheStag();
@@ -527,12 +465,17 @@ int main(void){
     test_afficherStagesParCritere();
     printf("\n\n");
     testajoutOffre();
+    printf("\n\n");
     test_global();
     printf("\n1\n");
     test_affichageToutStageAvecCandidature();
+    printf("\n\n");
     test_afficherStageAffecte();
-    */
+    printf("\n\n");
     testAfficherStagesParDepartement();
+    printf("\n\n");
+    */
+    testAjoutCand();
     
     return 0;
 }
