@@ -468,6 +468,19 @@ void test_affichageToutStageAvecCandidature(void) {
     affichageToutStageAvecCandidature(Tab_Ref, Tab_EtuAcc, Tlog, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tab_NCand);
 }
 
+void testAfficherStagesParDepartement() {
+    // Valeurs de test
+    int Tab_Ref[] = {5008, 2001, 8000, 5623};
+    int Tab_Dep[] = {1, 2, 1, 3};
+    int Tlog = 4;  
+    printf("Test 1: Département 3\n");
+    afficherStagesParDepartement(Tab_Ref, Tab_Dep, Tlog, 3);  // Département 3
+    printf("\n");
+
+    printf("Test 2: Département 4 (inexistant)\n");
+    afficherStagesParDepartement(Tab_Ref, Tab_Dep, Tlog, 4);  // Département 4 qui n'existe pas
+    printf("\n");
+}
 
 void test_afficherStageAffecte(void) {
     int Tab_Etu[5] = {1, 2, 3, 4, 5};
@@ -516,6 +529,8 @@ int main(void){
     test_global();
     printf("\n1\n");
     test_affichageToutStageAvecCandidature();
+    test_afficherStageAffecte();
+    testAfficherStagesParDepartement();
     */
     return 0;
 }
