@@ -268,7 +268,94 @@ void testAccepteEtu(void){
     afficheTabEnt(Tab_RSta,TlogEtu);
 }
 
+void testajoutCand() {
+    int Tab_Etu[5] = {101, 102, 103, 104, 105};  
+    int Tab_Cand1[10] = {0,0,0,0,0,0,0,0,0,0};  
+    int Tab_Cand2[10] = {0,0,0,0,0,0,0,0,0,0};  
+    int Tab_Cand3[10] = {0,0,0,0,0,0,0,0,0,0};  
+    int Tab_NCand[10] = {0,0,0,0,0,0,0,0,0,0}; 
+    int Tab_Ref[5] = {10, 11, 12, 13, 14};  
+    int Tlog = 10;  
+    int tailleM = 100;  
+    int numEtu, refStage;
+
+    printf("Test 1: Ajout de la candidature pour l'étudiant 101 au stage 10\n");
+    numEtu = 101;
+    refStage = 10;
+    int result = ajoutCand(Tab_Etu, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tlog, Tab_NCand, Tab_Ref, tailleM);
+    
+    if (result == 0) {
+        printf("Test réussi: Candidature ajoutée.\n");
+    } else {
+        printf("Test échoué: Erreur lors de l'ajout.\n");
+    }
+    ajoutCand(Tab_Etu, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tlog, Tab_NCand, Tab_Ref, tailleM);
+    printf("Tab_Cand1: ");
+    for (int i = 0; i < Tlog; i++) {
+        printf("%d ", Tab_Cand1[i]);
+    }
+    printf("\n");
+
+    printf("Test 2: Ajout de la candidature pour l'étudiant 102 au stage 11\n");
+    numEtu = 102;
+    refStage = 11;
+    result = ajoutCand(Tab_Etu, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tlog, Tab_NCand, Tab_Ref, tailleM);
+
+    if (result == 0) {
+        printf("Test réussi: Candidature ajoutée.\n");
+    } else {
+        printf("Test échoué: Erreur lors de l'ajout.\n");
+    }
+
+    printf("Tab_Cand1: ");
+    for (int i = 0; i < Tlog; i++) {
+        printf("%d ", Tab_Cand1[i]);
+    }
+    printf("\n");
+
+    printf("Test 3: Essayer d'ajouter un étudiant qui a déjà 3 candidatures\n");
+    numEtu = 101;
+    refStage = 12; 
+    result = ajoutCand(Tab_Etu, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tlog, Tab_NCand, Tab_Ref, tailleM);
+    
+    if (result == 0) {
+        printf("Test réussi: Candidature ajoutée.\n");
+    } else {
+        printf("Test échoué: Erreur lors de l'ajout.\n");
+    }
+    printf("Tab_Cand1: ");
+    for (int i = 0; i < Tlog; i++) {
+        printf("%d ", Tab_Cand1[i]);
+    }
+    printf("\n");
+
+    printf("Tab_Cand2: ");
+    for (int i = 0; i < Tlog; i++) {
+        printf("%d ", Tab_Cand2[i]);
+    }
+    printf("\n");
+
+    printf("Tab_Cand3: ");
+    for (int i = 0; i < Tlog; i++) {
+        printf("%d ", Tab_Cand3[i]);
+    }
+    printf("\n");
+
+    printf("Test 4: Tester l'ajout d'un étudiant ayant déjà 3 candidatures\n");
+    numEtu = 101;
+    refStage = 13; 
+    result = ajoutCand(Tab_Etu, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tlog, Tab_NCand, Tab_Ref, tailleM);
+
+    if (result == 0) {
+        printf("Test réussi: Candidature ajoutée.\n");
+    } else {
+        printf("Test échoué: Erreur lors de l'ajout.\n");
+    }
+
+}
+
 int main(void){
+    testajoutCand();
     /*
     testRecherche();
     printf("\n\n");

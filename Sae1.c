@@ -171,8 +171,9 @@ int decalerADroiteI(int tab[],int tailleM,int ind,int *tLog){
     }
     for (i=*tLog;i>ind;i--){
         tab[i]=tab[i-1];
+        printf("%d",i);
     }
-    return 0;
+    return i;
 }
 
 /// @brief Décale le contenu du tableau de float d'une case vers la droite
@@ -528,30 +529,39 @@ int ajoutNote(int Tab_Etu[],float Tab_Note[],int Tlog){
     Tab_Note[ind]=noteG;
     return 0;
 }
-/*
-//Non vérifiée
-int ajoutCand(int Tab_Etu[], int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tlog, int Tab,int Tab_Ref,int tailleM){
-    int ind, numEtu,refStage,trouve, nbCand=0,i;
+
+/// @brief Ajout d'une cadnidature a un stage si les conditions sont remplis.
+/// @param Tab_Etu : Tableau contenant les numéros etudiants
+/// @param Tab_Cand1 : Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe).
+/// @param Tab_Cand2  : Contient le deuxieme numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe).
+/// @param Tab_Cand3 : Contient le troisieme numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe).
+/// @param Tlog : Contient la taille logique du tableau.
+/// @param Tab_NCand : Tableau contenant le nombre de candidature pour un stage.
+/// @param Tab_Ref : Tableau contenant la référence pour chaque stage.
+/// @param tailleM : Contient la taille max du tableau
+/// @return : -1 si le programme a été arrété, 0 s'il a fontionné.
+int ajoutCand(int Tab_Etu[], int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tlog, int Tab_NCand[],int Tab_Ref[],int tailleM){
+    int ind, numEtu,refStage,trouve, nbCand=0,i,k=0;
     printf("Quelle est votre numéro d'Etudiant ? (-1 pour quitter) \n");
-    scanf("%d",numEtu);
+    scanf("%d",&numEtu);
     ind=recherche(Tab_Etu,Tlog,numEtu,&trouve);
     while(trouve==0)
     {
         printf("Vous n'êtes pas enregistré en temps qu'Etudiant  \n");
         printf("Quelle est votre numéro d'Etudiant ? (-1 pour quitter) \n");
-        scanf("%d",numEtu);
+        scanf("%d",&numEtu);
         if(numEtu==-1)
             exit(-1);
         
     }
     printf("A quel stage voulez vous candidater ? \n");
-    scanf("%d",refStage);
+    scanf("%d",&refStage);
     ind=recherche(Tab_Ref,Tlog,refStage,&trouve);
     while(trouve==0)
     {
         printf("Aucun stage avec cette référence \n");
         printf("A quel stage voulez vous candidater ? (-1 pour quitter) \n");
-        scanf("%d",refStage);
+        scanf("%d",&refStage);
         if(numEtu==-1)
             exit(-1);
         
@@ -570,13 +580,25 @@ int ajoutCand(int Tab_Etu[], int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], 
         printf("Vous avez déjà 3 candidatures");
         exit(1);
     }
-    decalerADroiteI(Tab_Ref,tailleM,refStage,&Tlog);
-    if(nbCand<3)
-        if(nbCand<2)
-            if(nbCand<1)
-                Tab_Cand3[]
+    k=decalerADroiteI(Tab_Ref,tailleM,refStage,&Tlog);
+    Tab_Ref[k]=numEtu;
+    if(nbCand<3){
+        if(nbCand<2){
+            if(nbCand<1){
+                decalerADroiteI(Tab_Cand1,tailleM,k,&Tlog);
+                Tab_Cand1[k]=numEtu;
+                printf("%d",k);
+            }
+            decalerADroiteI(Tab_Cand2,tailleM,k,&Tlog);
+            Tab_Cand2[k]=numEtu;
+        }
+        decalerADroiteI(Tab_Cand3,tailleM,k,&Tlog);
+        Tab_Cand3[k]=numEtu;
+    }
+    Tab_NCand[k]=Tab_NCand[k]+1;
+    return 0;
 }
-*/
+
 /// @brief Fonction de sauvegarde des tables Tab_Etu/Rsta/Note dans le fichier Etudiant.don
 /// @param Tab_Etu Table contenant les Numéros des étudiants
 /// @param Tab_RSta Table contenant les Références du stage où les étudiants ont été acceptés 
@@ -615,8 +637,21 @@ void sauvegardeOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand
         
     }
 }
-/*
-//Non vérifiée
+
+/// @brief Menu qui permet de designer si nous sommes un etudiant ou un responsable de stage.
+/// @param Tab_Ref Tableau contenant les Références des stages
+/// @param Tab_EtuAcc Tableau contenant si un stage a accépté un étudiant
+/// @param Tlog Taille logique de ces tableaux
+/// @param Netu le numero etudiant
+/// @param Tab_Cand1 Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand2 Contient le deuxieme numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand3 Contient le troisieme numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_NCand Tableau contenant le nombre de candidature d'étudiants
+/// @param Tab_Dep Tableau contenant le departement des stages
+/// @param Tab_Etu Table contenant les Numéros des étudiants
+/// @param Tab_RSta Table contenant les Références du stage où les étudiants ont été acceptés 
+/// @param Tab_Note Table contenant les Notes des etudiants reçue durant leur stage
+/// @return 1 si Etudiant et 2 si responsable
 int menuChoix(int Tab_Ref[], int Tab_EtuAcc[], int Tlog, int Netu, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[])
 {
   int id;
@@ -629,11 +664,23 @@ int menuChoix(int Tab_Ref[], int Tab_EtuAcc[], int Tlog, int Netu, int Tab_Cand1
     scanf("%d",&id);
   }
   if(id==1)
-    menuEtudiant(Tab_Ref,Tab_Dep,Tab_EtuAcc, Tlog, Netu, Tab_Etu);
+    menuEtudiant( Tab_Ref,  Tab_Dep, Tab_EtuAcc,  Tlog, Netu, Tab_Etu, Tab_Cand1,Tab_Cand2,Tab_Cand3,Tab_NCand);
   if(id==2)
-    menuResponsable(Tab_Ref,  Tab_EtuAcc, Tlog, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tab_NCand, Tab_Dep,Tab_Etu,Tab_RSta,Tab_Note);
+    menuResponsable(Tab_Ref, Tab_EtuAcc,  Tlog, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tab_NCand,Tab_Dep, Tab_Etu,Tab_RSta,Tab_Note);
 }
-//Non vérifiée
+
+/// @brief Menu responsable qui lui affiche les différentes action réalisable.
+/// @param Tab_Ref Tableau contenant les Références des stages
+/// @param Tab_EtuAcc Tableau contenant si un stage a accépté un étudiant
+/// @param Tlog Taille logique de ces tableaux
+/// @param Tab_Cand1 Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand2 Contient le deuxieme numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_Cand3 Contient le troisieme numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
+/// @param Tab_NCand Tableau contenant le nombre de candidature d'étudiants
+/// @param Tab_Dep Tableau contenant le departement des stages
+/// @param Tab_Etu Table contenant les Numéros des étudiants
+/// @param Tab_RSta Table contenant les Références du stage où les étudiants ont été acceptés 
+/// @param Tab_Note Table contenant les Notes des etudiants reçue durant leur stage
 void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int Tlog, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[])
 {
   int choix;
@@ -650,13 +697,13 @@ void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int Tlog, int Tab_Cand1[],
   if(choix==1)
     affichageToutStageAvecCandidature(Tab_Ref,Tab_EtuAcc, Tlog, Tab_Cand1, Tab_Cand2, Tab_Cand3,Tab_NCand);
   if(choix==2)
-    afficherStagesPourvus(Tab_Ref, Tab_Dep, Tab_EtuAcc, Tab_Etu, Tlog);
+    afficherStagesPourvus(Tab_Ref, Tab_Dep, Tab_EtuAcc, Tab_Etu, Tab_RSta, Tlog);
   if(choix==3)
     afficherEtudiantsSansStage(Tab_Etu,Tab_RSta,Tlog);
   if(choix==4)
     printf("Donné la reference du stage pour différentes informations: ");
     scanf("%d",&ref);
-    afficherInfoStage(Tab_Ref, Tab_Dep,Tab_EtuAcc,Tab_NCand, Tlog,ref);
+    afficherInfoStage(Tab_Ref, Tab_Dep,Tab_EtuAcc,Tab_NCand,Tab_Cand1,Tab_Cand2, Tab_Cand3, Tlog,ref);
   if(choix==5)
     printf("Voulez vous chercher un stage par numéro ou departement ? : n/d");
     scanf("%c",&critere);
@@ -679,9 +726,14 @@ void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int Tlog, int Tab_Cand1[],
     exit(1);
 }
 
-
-//Non vérifiée
-void menuEtudiant(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tlog,int Netu, int Tab_Etu[])
+/// @brief Menu etudiant qui lui affiche les différentes action réalisable.
+/// @param Tab_Ref Tableau contenant les Références des stages
+/// @param Tab_Dep Tableau contenant le departement des stages
+/// @param Tab_EtuAcc Tableau contenant si un stage a accépté un étudiant
+/// @param Tlog Taille logique de ces tableaux
+/// @param Netu Numéro etudiant
+/// @param Tab_Etu Table contenant les Numéros des étudiants
+void menuEtudiant(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tlog,int Netu, int Tab_Etu[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Tab_NCand[])
 {
   int choix;
   printf(" 1/ Affichage de la liste des stages disponibles \n 2/ Affichage des candidatures \n 3/ Ajouter une candidature \n 9/ Quitter");
@@ -695,13 +747,15 @@ void menuEtudiant(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int Tlog,int N
   if(choix==1)
     afficherStagesNonPourvus(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tlog);
   if(choix==2)
-    afficherCandidaturesEtudiant(Tab_Etu,Tab_Ref,Tlog,Netu);
+    afficherCandidaturesEtudiant(Tab_Ref,Tlog,Tab_NCand,Tab_Cand1, Tab_Cand2,Tab_Cand3,Netu);
   if(choix==3)
     printf("ajouter une candidature.");
   if(choix==9)
     exit(1);
 }
-//Non vérifiée
+
+/// @brief Fonction permettant la mise en relation de toute les autres fonction.
+/// @param void /
 void global(void) {
     int Tab_Ref[300], Tab_Dep[300], Tab_EtuAcc[300], Tab_Ncand[300], Tab_Cand1[300], Tab_Cand2[300], Tab_Cand3[300], Tmax=300, TlogEtu, TlogSta,  Tab_Etu[300],Tab_RSta[300], NEtu, val, ref,valeur, dept;
     float Tab_Note[300];
@@ -711,9 +765,9 @@ void global(void) {
     TlogEtu=chargementEtu(Tab_Etu,Tab_RSta,Tab_Note,Tmax, flot); //respon , eleve,quittermenu etu//
     flot=fopen("Stage.don","r");
     TlogSta=chargementOffre(Tab_Ref, Tab_Dep, Tab_EtuAcc, Tab_Ncand, Tmax, Tab_Cand1, Tab_Cand2, Tab_Cand3, flot);
-    //menuChoix( Tab_Ref, Tab_EtuAcc, TlogEtu, TlogSta, NEtu, Tab_Cand1,Tab_Cand2,  Tab_Cand3, Tab_Ncand, Tab_Dep, Tab_Etu, Tab_RSta, Tab_Note);
+    menuChoix(Tab_Ref, Tab_EtuAcc, TlogEtu, Netu,  Tab_Cand1,  Tab_Cand2,  Tab_Cand3, Tab_Ncand, Tab_Dep, Tab_Etu, Tab_RSta,Tab_Note);
     sauvegardeOffre(Tab_Ref, Tab_Dep,Tab_EtuAcc,Tab_Ncand,TlogSta,Tab_Cand1,Tab_Cand2,Tab_Cand3,flot);
     flot=fopen("Etudiant.don","r");
     sauvegardeEtu(Tab_Etu,Tab_RSta, Tab_Note, TlogEtu,flot);
 }
-*/
+
