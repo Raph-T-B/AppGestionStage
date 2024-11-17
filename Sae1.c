@@ -818,7 +818,7 @@ void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogCan, 
   char critere;
   printf(" 1/ Affichage des stages avec candidature \n 2/ Affichage des stages sans candidature \n 3/ Liste des étudiants sans stages \n 4/ Informations sur un stage \n 5/ Recherche de stages selon un critère \n 6/ Affectation d'un stage à un étudiant \n 7/ Ajout note de stage \n 8/ Affectation d'un étudiant à un stage \n 9/ Changer MDP  \n 10/ Quitter \n Votre Réponse : ");
   scanf("%d",&choix);
-  while (choix>10)
+  while (choix>9)
   {
     printf("Erreur, veuillez recommencer.\n");
     printf(" 1/ Affichage des stages avec candidature \n 2/ Affichage des stages sans candidature \n 3/ Liste des étudiants sans stages \n 4/ Informations sur un stage \n 5/ Recherche de stages selon un critère \n 6/ Affectation d'un stage à un étudiant \n 7/ Ajout note de stage \n 8/ Affectation d'un étudiant à un stage \n 9/ Changer MDP  \n 10/ Quitter \n Votre Réponse : ");
@@ -852,14 +852,12 @@ void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogCan, 
     afficherStagesParCritere(Tab_Ref, Tab_Dep, TlogCan,critere, valeur);
   }
   if(choix==6)
-    ajoutCand(Tab_Etu,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogEtu,TlogCan,Tab_NCand,Tab_Ref,tailleM);
-  if(choix==7)
     ajoutNote(Tab_Etu,Tab_Note,TlogEtu);
-  if(choix==8)
+  if(choix==7)
     accepteEtu(Tab_Etu,Tab_RSta, Tab_Ref, Tab_EtuAcc,Tab_NCand, Tab_Cand1, Tab_Cand2, Tab_Cand3, TlogEtu, TlogCan,ref, Netu);
-  if(choix==9)
+  if(choix==8)
     changerMDP();
-  if(choix==10)
+  if(choix==9)
     *quit=0;
 }
 
