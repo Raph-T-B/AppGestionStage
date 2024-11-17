@@ -146,14 +146,14 @@ int recherche(int tab[],int taille,int val,int *trouve){
 /// @param tab tab dans lequel la valeur est recherché
 /// @param taille taille logique du tableau
 /// @param val valeur à recherché
-/// @return l'indice de la valeur val dans le tableau tab
+/// @return l'indice de la valeur val dans le tableau tab, -1 si pas trouvé
 int rechercheStag(int tab[],int taille,int val){
     int ind=0;
     for(ind=0;ind<taille;ind++){
         if (tab[ind]==val)
             return ind;
     }
-    return ind;
+    return -1;
 }
 
 
@@ -457,7 +457,7 @@ void AccepteEtu(int Tab_Etu[],int Tab_Rsta[],int Tab_Ref[],int Tab_EtuAcc[],int 
 
 /// @brief Fonction qui supprime un candidat
 /// @param Tab_Ref : Tableau contenant les références des stages
-/// @param Tab_NCand : Tableau contenant les Départements des stages
+/// @param Tab_NCand : Tableau contenant le nombre de candidats aux stage 
 /// @param Tab_Cand1 : Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
 /// @param Tab_Cand2 : Contient le deuxième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
 /// @param Tab_Cand3 : Contient le troisième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
@@ -482,7 +482,7 @@ void SupprimeCandidature(int Tab_Ref[],int Tab_NCand[],int Tab_Cand1[],int Tab_C
 /// @brief Fonction pour ajouter une note à un étudiant
 /// @param Tab_Etu : Tableau contenant les numéros etudiants
 /// @param Tab_Note : Tableau contenant les notes des etudiants
-/// @param Tlog : Taille logique du tableau
+/// @param Tlog : Taille logique des tableau
 /// @return : -1 si le programme a été arrété, 0 s'il a fontionné
 int ajoutNote(int Tab_Etu[],float Tab_Note[],int Tlog){
     int i=0,numEtu,ind,trouve,verif=0;
@@ -529,7 +529,51 @@ int ajoutNote(int Tab_Etu[],float Tab_Note[],int Tlog){
     return 0;
 }
 
-/// @brief Ajout d'une cadnidature a un stage si les conditions sont remplis.
+/// @brief Fonction pour ajouter une offre
+/// @param Tab_Ref : Tableau contenant les références des stages
+/// @param Tab_Dep : Tableau contenant les départements des stages
+/// @param Tab_EtuAcc : Tableau contenant si un stage a accépté un étudiant: 
+/// @param Tab_NCand : Tableau contenant le nombre de candidats aux stage 
+/// @param Tlog : Taille logique des tableau
+/// @return : -1 si le programme a été arrété, 0 s'il a fontionné
+int ajoutOffre(int Tab_Ref[],int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[],int *Tlog,int Tmax){
+    int i=0,ref,ind,dep,verif=-1;
+    if(*Tlog==Tmax){
+        printf("PB: tableau trop petit pour insérer un nouveau stage");
+        return -1;
+    }
+    printf("Quel est la référence du stage que vous voulez ajouter ? (-1 pour quitter) : ");
+    scanf("%d",&ref);
+    ind=rechercheStag(Tab_Ref,*Tlog,ref);
+    while(ind>-1){ //test si la ref du stage est déjà dans le tableau ou non
+        if(ref==-1) 
+            return -1;
+        printf("Ce stage est déjà présent, veuillez rentrer la référence d'un nouveau stage (-1 pour quitter) : ");
+        scanf("%d",&ref);
+        ind=rechercheStag(Tab_Ref,*Tlog,ref);
+    }
+    printf("Quel est le département de ce stage  %d ? : ",ref);
+    scanf("%d",&dep);
+    printf("Etes vous sûr de vouloir rajouter le stage %d avec le département %d ? \n(-1 pour non, 0ind pour quitter, autre nombre pour oui) : ",ref,dep);
+    scanf("%d",&verif);
+    while (verif==-1){
+        if (verif==0){
+            return -1;
+        }
+        printf("Redonnez le département du stage %d ? : ",ref);
+        scanf("%d",&dep);
+        printf("Etes vous sûr de vouloir rajouter le stage %d avec le département %d ? \n(-1 pour non, 0 pour quitter, autre nombre pour oui)",ref,dep);
+        scanf("%d",&verif);
+    }
+    Tab_Ref[*Tlog]=ref;
+    Tab_Dep[*Tlog]=dep;
+    Tab_EtuAcc[*Tlog]=0;
+    Tab_NCand[*Tlog]=0;
+    *Tlog=*Tlog+1;
+    return 0;
+}
+
+/// @brief Ajout d'une candidature a un stage si les conditions sont remplis.
 /// @param Tab_Etu : Tableau contenant les numéros etudiants
 /// @param Tab_Cand1 : Contient le premier numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe).
 /// @param Tab_Cand2  : Contient le deuxieme numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe).

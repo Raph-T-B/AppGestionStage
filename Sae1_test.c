@@ -64,6 +64,7 @@ void test_decalageD_Int(void){
 //VERIFIED !!// 
 void testRecherche(void){
     int tab[20]={3,7,10,29,33},taille=5,val=8,trouve,indice,Tlog=5;
+    printf("--Test de recherche dans un tableau ordonné\n");
     printf("tableau donné :\n");
     afficheTabEnt(tab,Tlog);
     indice=recherche(tab,taille,val,&trouve);
@@ -80,6 +81,28 @@ void testRecherche(void){
     val=33;
     indice=recherche(tab,taille,val,&trouve);
     printf("recherche : 33 résultat attendu : 4 et 1, résultat : %d %d\n",indice,trouve);
+}
+
+//VERIFIED !!// 
+void testRechercheStag(void){
+    int tab[20]={3,7,10,29,33},taille=5,val=8,indice,Tlog=5;
+    printf("--Test de recherche dans un tableau quelconque\n");
+    printf("tableau donné :\n");
+    afficheTabEnt(tab,Tlog);
+    indice=rechercheStag(tab,taille,val);
+    printf("recherche : 8 résultat attendu :-1 , résultat : %d\n",indice);
+    val=1;
+    indice=rechercheStag(tab,taille,val);
+    printf("recherche : 1 résultat attendu : -1 , résultat : %d\n",indice);
+    val=90;
+    indice=rechercheStag(tab,taille,val);
+    printf("recherche : 90 résultat attendu : -1 , résultat : %d\n",indice);
+    val=10;
+    indice=rechercheStag(tab,taille,val);
+    printf("recherche : 10 résultat attendu : 2, résultat : %d\n",indice);
+    val=33;
+    indice=rechercheStag(tab,taille,val);
+    printf("recherche : 33 résultat attendu : 4, résultat : %d\n",indice);
 }
 
 //VERIFIED !!// 
@@ -136,13 +159,14 @@ void testAfficherInfoStage(void){
 }
 
 //VERIFIED !!// 
-void testajout(void){
+void testajoutNote(void){
     int Tab_Etu[]={2834,4933,4384,2368,1839};
     float Tab_Note[]={-1,-1,-1,-1,-1};
     int cont=0,sort=0,i=0;
     for(i=0;i<5;i++)
         printf("etu : %d note : %.2f\n",Tab_Etu[i],Tab_Note[i]);
     printf("\n");
+    printf("--Test Ajout Note \n");
     printf("############### Possibilité d'exécuter une batterire de test ###############\n");
     printf("\n");
     while(cont!=-1){
@@ -154,6 +178,43 @@ void testajout(void){
         printf("\n");
         for(i=0;i<5;i++)
             printf("etu : %d note : %.2f\n",Tab_Etu[i],Tab_Note[i]);
+        printf("\n");
+        printf("Voulez vous continuer à tester ? : (-1 pour non 0 pour oui) : ");
+        scanf("%d",&cont);
+    }
+    printf("\n");
+    printf("Fin test ajout\n");
+}
+
+
+//VERIFIED !!// 
+void testajoutOffre(void){
+    int Tab_Ref[30]={5008,2001,8000,5623};
+    int Tab_Dep[30]={26,56,80,63};
+    int Tab_EtuAcc[30]={0,1,0,1};
+    int Tab_NCand[30]={2,0,3,0};
+    int Tlog=5,Tmax=30,i,sort,cont=1;
+    printf("\n");
+    printf("--Test Ajout stage \n");
+    printf("\n");
+    afficheTabEnt(Tab_Ref,Tlog);
+    afficheTabEnt(Tab_Dep,Tlog);
+    afficheTabEnt(Tab_EtuAcc,Tlog);
+    afficheTabEnt(Tab_NCand,Tlog);
+    printf("\n");
+    printf("############### Possibilité d'exécuter une batterire de test ###############\n");
+    printf("\n");
+    while(cont!=-1){
+        sort=ajoutOffre(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_NCand,&Tlog,Tmax);
+        if (sort==-1)
+            printf("Vous êtes bien sortis de la fonction\n");
+        if (sort==0)
+            printf("La fonction a bien fonctionné ! Affichage du nouveau tableau : \n");
+        printf("\n");
+        afficheTabEnt(Tab_Ref,Tlog);
+        afficheTabEnt(Tab_Dep,Tlog);
+        afficheTabEnt(Tab_EtuAcc,Tlog);
+        afficheTabEnt(Tab_NCand,Tlog);
         printf("\n");
         printf("Voulez vous continuer à tester ? : (-1 pour non 0 pour oui) : ");
         scanf("%d",&cont);
@@ -380,6 +441,8 @@ int main(void){
     testajoutCand();
     testRecherche();
     printf("\n\n");
+    testRechercheStag();
+    printf("\n\n");
     testAfficherStagesPourvus();
     printf("\n\n");
     testAfficherStagesNonPourvus();
@@ -396,7 +459,7 @@ int main(void){
     printf("\n\n");
     test_decalageD_Int();
     printf("\n\n");
-    testajout();
+    testajoutNote();
     printf("\n\n");
     testSupprimeCandidature();
     printf("\n\n");
@@ -407,5 +470,7 @@ int main(void){
     test_afficherStagesParCritere();
     printf("\n\n");
     */
+    testajoutOffre();
+
     return 0;
 }

@@ -40,7 +40,7 @@ int recherche(int tab[],int taille,int val,int *trouve);
 /// @param tab tab dans lequel la valeur est recherché
 /// @param taille taille logique du tableau
 /// @param val valeur à recherché
-/// @return l'indice de la valeur val dans le tableau tab
+/// @return l'indice de la valeur val dans le tableau tab, -1 si pas trouvé
 int rechercheStag(int tab[],int taille,int val);
 /// @brief Décale le contenu du tableau d'entiers d'une case vers la droite
 /// @param tab : Tableau dans lequel le décalage va être effectué
@@ -167,6 +167,14 @@ void SupprimeCandidature(int Tab_Ref[],int Tab_NCand[],int Tab_Cand1[],int Tab_C
 int ajoutNote(int Tab_Etu[],float Tab_Note[],int Tlog);
 //Non vérifiée
 int ajoutCand(int Tab_Etu[], int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tlog, int Tab_NCand[],int Tab_Ref[],int tailleM);
+/// @brief Fonction pour ajouter une offre
+/// @param Tab_Ref : Tableau contenant les références des stages
+/// @param Tab_Dep : Tableau contenant les départements des stages
+/// @param Tab_EtuAcc : Tableau contenant si un stage a accépté un étudiant: 
+/// @param Tab_NCand : Tableau contenant le nombre de candidats aux stage 
+/// @param Tlog : Taille logique des tableau
+/// @return : -1 si le programme a été arrété, 0 s'il a fontionné
+int ajoutOffre(int Tab_Ref[],int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[],int *Tlog,int Tmax);
 /// @brief Fonction de sauvegarde des tables Tab_Etu/Rsta/Note dans le fichier Etudiant.don
 /// @param Tab_Etu Table contenant les Numéros des étudiants
 /// @param Tab_RSta Table contenant les Références du stage où les étudiants ont été acceptés 
