@@ -321,7 +321,7 @@ void testAccepteEtu(void){
     afficherInfoStage(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogSta,5623);
     afficherInfoStage(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogSta,2388);
     printf("Etudiant accepté dans le stage 8000, mise à jour des Stages :\n");
-    AccepteEtu(Tab_Etu,Tab_RSta,Tab_Ref,Tab_EtuAcc,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogEtu,TlogSta,8000,101);
+    accepteEtu(Tab_Etu,Tab_RSta,Tab_Ref,Tab_EtuAcc,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogEtu,TlogSta,8000,101);
     afficherInfoStage(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogSta,8000);
     afficherInfoStage(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogSta,5623);
     afficherInfoStage(Tab_Ref,Tab_Dep,Tab_EtuAcc,Tab_NCand,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogSta,2388);
@@ -493,6 +493,7 @@ void test_afficherStageAffecte(void) {
 
 int main(void){
     testMenuChoix();
+    testAccepteEtu();
     /*
     testajoutCand();
     testRecherche();

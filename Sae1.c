@@ -436,7 +436,7 @@ void afficherStagesParDepartement(int Tab_Ref[], int Tab_Dep[], int Tlog, int de
 /// @param TlogSta : Taille logique des tableaux Ref/NCand/Cand1/Cand2/Cand3
 /// @param refStage : Référence du stage à changer
 /// @param num_Etu : Numéro d'étudiant accepté
-void AccepteEtu(int Tab_Etu[],int Tab_Rsta[],int Tab_Ref[],int Tab_EtuAcc[],int Tab_NCand[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int TlogEtu,int TlogSta,int refStage, int num_Etu){
+void accepteEtu(int Tab_Etu[],int Tab_Rsta[],int Tab_Ref[],int Tab_EtuAcc[],int Tab_NCand[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int TlogEtu,int TlogSta,int refStage, int num_Etu){
     int ind,trouve;
     ind=rechercheStag(Tab_Ref,TlogSta,refStage);
     Tab_EtuAcc[ind]=1;
@@ -470,7 +470,7 @@ void AccepteEtu(int Tab_Etu[],int Tab_Rsta[],int Tab_Ref[],int Tab_EtuAcc[],int 
 /// @param Tab_Cand3 : Contient le troisième numéro etudiant de la liste des étudiants ayant fais une demande pour la fomation (s'il existe)
 /// @param Tlog : Taille logique des tableaux
 /// @param etu : numéro de l'étudiant à supprimer
-/// @param stage : l'indice du stage où l'étudiant est supprimé
+/// @param ind : l'indice du stage où l'étudiant est supprimé
 void SupprimeCandidature(int Tab_Ref[],int Tab_NCand[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Tlog,int etu,int ind){
     int i;
     if (Tab_Cand1[ind]==etu){
@@ -591,6 +591,7 @@ int ajoutOffre(int Tab_Ref[],int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand[],int 
 /// @param Tab_Ref : Tableau contenant la référence pour chaque stage.
 /// @param tailleM : Contient la taille max du tableau
 /// @return : -1 si le programme a été arrété, 0 s'il a fontionné.
+
 int ajoutCand(int Tab_Etu[], int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int TlogEtu, int TlogCan, int Tab_NCand[],int Tab_Ref[],int tailleM){
     int ind, numEtu,refStage,trouve, nbCand=0,i,k=0;
     printf("Quelle est votre numéro d'Etudiant ? (-1 pour quitter) \n");
@@ -598,16 +599,16 @@ int ajoutCand(int Tab_Etu[], int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], 
     ind=recherche(Tab_Etu,TlogEtu,numEtu,&trouve);
     while(trouve==0)
     {
-        printf("Vous n'êtes pas enregistré en temps qu'Etudiant  \n");
+        printf("Vous n'êtes pas enregistré en tant qu'Etudiant.\n");
         printf("Quelle est votre numéro d'Etudiant ? (-1 pour quitter) \n");
-        scanf("%d",&numEtu);
-        if(numEtu==-1)
-            exit(-1);
-        ind=recherche(Tab_Etu,TlogEtu,numEtu,&trouve);
+        scanf("%d", &numEtu);
+        if (numEtu == -1)
+            return -1;
+        ind = recherche(Tab_Etu, TlogEtu, numEtu, &trouve);
     }
-    printf("A quel stage voulez vous candidater ? \n");
+    printf("A quel stage voulez-vous candidater ? \n");
     scanf("%d",&refStage);
-    ind=recherche(Tab_Ref,TlogCan,refStage,&trouve);
+    ind = recherche(Tab_Ref, TlogCan, refStage, &trouve);
     while(trouve==0)
     {
         printf("Aucun stage avec cette référence \n");
@@ -617,32 +618,25 @@ int ajoutCand(int Tab_Etu[], int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], 
             exit(-1);
         ind=recherche(Tab_Ref,TlogCan,numEtu,&trouve);
     }
-    for(i=0;i<TlogCan;i++)
-    {
-        if(numEtu==Tab_Cand1[i])
-            nbCand=nbCand+1;
-        if(numEtu==Tab_Cand2[i])
-            nbCand=nbCand+1;
-        if(numEtu==Tab_Cand3[i])
-            nbCand=nbCand+1;
+    for (i = 0; i < TlogCan; i++) {
+        if (numEtu == Tab_Cand1[i]) nbCand++;
+        if (numEtu == Tab_Cand2[i]) nbCand++;
+        if (numEtu == Tab_Cand3[i]) nbCand++;
     }
-    printf("%d",nbCand);
-    if(nbCand==3)
+
+    printf("Nombre de candidatures actuelles : %d\n", nbCand);
+    if (nbCand >= 3)
     {
-        printf("Vous avez déjà 3 candidatures");
-        exit(1);
+        printf("Vous avez déjà 3 candidatures, impossible d'ajouter une nouvelle.\n");
+        return 1;
     }
     if(nbCand=0){
-        decalerADroiteI(Tab_Cand1,tailleM,ind,&TlogCan);
-        Tab_Cand1[ind]=numEtu;
-    }
-    if(nbCand=1){
-        decalerADroiteI(Tab_Cand2,tailleM,ind,&TlogCan);
-        Tab_Cand2[ind]=numEtu;
-    }
-    if(nbCand=2){
-        decalerADroiteI(Tab_Cand3,tailleM,ind,&TlogCan);
-        Tab_Cand3[ind]=numEtu;
+        Tab_Cand1[ind] = numEtu;
+    } else if (nbCand == 1) {
+        Tab_Cand2[ind] = numEtu;
+    
+    } else if (nbCand == 2) {
+        Tab_Cand3[ind] = numEtu;
     }
     Tab_NCand[ind]=Tab_NCand[ind]+1;
     printf("%d",Tab_Cand1[ind]);
@@ -650,6 +644,7 @@ int ajoutCand(int Tab_Etu[], int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], 
     printf("%d",Tab_Cand3[ind]);
     return 0;
 }
+
 
 /// @brief Fonction de sauvegarde des tables Tab_Etu/Rsta/Note dans le fichier Etudiant.don
 /// @param Tab_Etu : Table contenant les Numéros des étudiants
@@ -790,11 +785,11 @@ int menuChoix(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogCan, int Tab
   while (quit!=0){
     if(id=='E'){
         printf("##---------------------##\n");
-        menuEtudiant( Tab_Ref,  Tab_Dep, Tab_EtuAcc, TlogEtu, TlogCan, Netu, Tab_Etu, Tab_Cand1,Tab_Cand2,Tab_Cand3,Tab_NCand,&quit);
+        menuEtudiant( Tab_Ref,  Tab_Dep, Tab_EtuAcc, TlogEtu, TlogCan, Netu, Tab_Etu, Tab_Cand1,Tab_Cand2,Tab_Cand3,Tab_NCand,tailleM,&quit);
     }
     if(id=='R'){
         printf("##---------------------##\n");
-        menuResponsable(Tab_Ref, Tab_EtuAcc, TlogEtu, TlogCan, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tab_NCand,Tab_Dep, Tab_Etu,Tab_RSta,Tab_Note,tailleM,&quit);
+        menuResponsable(Tab_Ref, Tab_EtuAcc, TlogEtu, TlogCan, Tab_Cand1, Tab_Cand2, Tab_Cand3, Tab_NCand,Tab_Dep, Tab_Etu,Tab_RSta,Tab_Note,tailleM,Netu,&quit);
     }
   }
   return 0;
@@ -814,18 +809,19 @@ int menuChoix(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogCan, int Tab
 /// @param Tab_RSta Table contenant les Références du stage où les étudiants ont été acceptés 
 /// @param Tab_Note Table contenant les Notes des etudiants reçue durant leur stage
 /// @param tailleM Taille maximal des tableaux.
+/// @param Netu Numéro etudiant.
 /// @param quit variable pour savoir si on veux quitter le menu
-void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogCan, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[],int tailleM,int *quit)
+void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogCan, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[],int tailleM,int Netu,int *quit)
 {
   int choix;
   int ref, valeur;
   char critere;
-  printf(" 1/ Affichage des stages avec candidature \n 2/ Affichage des stages sans candidature \n 3/ Liste des étudiants sans stages \n 4/ Informations sur un stage \n 5/ Recherche de stages selon un critère \n 6/ Affectation d'un stage à un étudiant \n 7/ Ajout note de stage \n 8/ Changer MDP \n 9/ Quitter \nVotre Réponse : ");
+  printf(" 1/ Affichage des stages avec candidature \n 2/ Affichage des stages sans candidature \n 3/ Liste des étudiants sans stages \n 4/ Informations sur un stage \n 5/ Recherche de stages selon un critère \n 6/ Affectation d'un stage à un étudiant \n 7/ Ajout note de stage \n 8/ Affectation d'un étudiant à un stage \n 9/ Changer MDP  \n 10/ Quitter \n Votre Réponse : ");
   scanf("%d",&choix);
-  while (choix>8 && choix<9)
+  while (choix>10)
   {
     printf("Erreur, veuillez recommencer.\n");
-    printf(" 1/ Affichage des stages avec candidature \n 2/ Affichage des stages sans candidature \n 3/ Liste des étudiants sans stages \n 4/ Informations sur un stage \n 5/ Recherche de stages selon un critère \n 6/ Affectation d'un stage à un étudiant \n 7/ Ajout note de stage \n 8/ Changer MDP \n 9/ Quitter \nVotre Réponse : ");
+    printf(" 1/ Affichage des stages avec candidature \n 2/ Affichage des stages sans candidature \n 3/ Liste des étudiants sans stages \n 4/ Informations sur un stage \n 5/ Recherche de stages selon un critère \n 6/ Affectation d'un stage à un étudiant \n 7/ Ajout note de stage \n 8/ Affectation d'un étudiant à un stage \n 9/ Changer MDP  \n 10/ Quitter \n Votre Réponse : ");
     scanf("%d",&choix);
   }
   printf("##---------------------##\n");
@@ -860,8 +856,10 @@ void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogCan, 
   if(choix==7)
     ajoutNote(Tab_Etu,Tab_Note,TlogEtu);
   if(choix==8)
-    changerMDP();
+    accepteEtu(Tab_Etu,Tab_RSta, Tab_Ref, Tab_EtuAcc,Tab_NCand, Tab_Cand1, Tab_Cand2, Tab_Cand3, TlogEtu, TlogCan,ref, Netu);
   if(choix==9)
+    changerMDP();
+  if(choix==10)
     *quit=0;
 }
 
@@ -873,8 +871,9 @@ void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogCan, 
 /// @param TlogCan Taille logique des tableaux associès aux stages
 /// @param Netu Numéro etudiant
 /// @param Tab_Etu Table contenant les Numéros des étudiants
+/// @param tailleM Taille maximum des tableaux
 /// @param quit variable pour savoir si on veux quitter le menu
-void menuEtudiant(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int TlogEtu, int TlogCan,int Netu, int Tab_Etu[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Tab_NCand[],int *quit)
+void menuEtudiant(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int TlogEtu, int TlogCan,int Netu, int Tab_Etu[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Tab_NCand[],int tailleM,int *quit)
 {
   int choix;
   printf(" 1/ Affichage de la liste des stages disponibles \n 2/ Affichage des candidatures \n 3/ Ajouter une candidature \n 9/ Quitter\nVotre Réponse : ");
@@ -890,12 +889,11 @@ void menuEtudiant(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int TlogEtu, i
   if(choix==2)
     afficherCandidaturesEtudiant(Tab_Ref,TlogCan,Tab_NCand,Tab_Cand1, Tab_Cand2,Tab_Cand3,Netu);
   if(choix==3)
-    printf("ajouter une candidature.");
+    ajoutCand(Tab_Etu,Tab_Cand1,Tab_Cand2,Tab_Cand3,TlogEtu,TlogCan,Tab_NCand,Tab_Ref,tailleM);
   if(choix==9)
     *quit=0;
 }
-//Non vérifiée
-
+//nonverifie
 
 
 /// @brief Fonction principale pour charger et sauvegarder les données des étudiants et des stages.

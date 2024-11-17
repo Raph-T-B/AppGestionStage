@@ -148,7 +148,7 @@ void afficherStagesParDepartement(int Tab_Ref[], int Tab_Dep[], int Tlog, int de
 /// @param TlogSta : Taille logique des tableaux Ref/NCand/Cand1/Cand2/Cand3
 /// @param refStage : Référence du stage à changer
 /// @param num_Etu : Numéro d'étudiant accepté
-void AccepteEtu(int Tab_Etu[],int Tab_Rsta[],int Tab_Ref[],int Tab_EtuAcc[],int Tab_NCand[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int TlogEtu,int TlogSta,int refStage, int num_Etu);
+void accepteEtu(int Tab_Etu[],int Tab_Rsta[],int Tab_Ref[],int Tab_EtuAcc[],int Tab_NCand[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int TlogEtu,int TlogSta,int refStage, int num_Etu);
 /// @brief Fonction qui supprime un candidat
 /// @param Tab_Ref : Tableau contenant les références des stages
 /// @param Tab_NCand : Tableau contenant les Départements des stages
@@ -204,8 +204,9 @@ void sauvegardeOffre(int Tab_Ref[], int Tab_Dep[],int Tab_EtuAcc[],int Tab_NCand
 /// @param Tab_Etu Table contenant les Numéros des étudiants
 /// @param Tab_RSta Table contenant les Références du stage où les étudiants ont été acceptés 
 /// @param Tab_Note Table contenant les Notes des etudiants reçue durant leur stage
+/// @param Netu Numéro etudiant
 /// @param tailleM Taille maximal des tableaux.
-void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogCan, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[],int tailleM,int *quit);
+void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogCan, int Tab_Cand1[], int Tab_Cand2[], int Tab_Cand3[], int Tab_NCand[],int Tab_Dep[],int Tab_Etu[],int Tab_RSta[], float Tab_Note[],int tailleM,int Netu,int *quit);
 /// @brief Menu etudiant qui lui affiche les différentes action réalisable.
 /// @param Tab_Ref Tableau contenant les Références des stages
 /// @param Tab_Dep Tableau contenant le departement des stages
@@ -214,7 +215,7 @@ void menuResponsable(int Tab_Ref[], int Tab_EtuAcc[], int TlogEtu, int TlogCan, 
 /// @param TlogCan Taille logique des tableaux associès aux stages
 /// @param Netu Numéro etudiant
 /// @param Tab_Etu Table contenant les Numéros des étudiants
-void menuEtudiant(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int TlogEtu, int TlogCan,int Netu, int Tab_Etu[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Tab_NCand[],int *quit);
+void menuEtudiant(int Tab_Ref[], int Tab_Dep[], int Tab_EtuAcc[], int TlogEtu, int TlogCan,int Netu, int Tab_Etu[],int Tab_Cand1[],int Tab_Cand2[],int Tab_Cand3[],int Tab_NCand[],int tailleM,int *quit);
 /// @brief Lit le fichier .mdpRespo pour avoir le mdp
 /// @return le mdp décrypté
 int OuvrmdpRespo(void);
