@@ -1,4 +1,4 @@
-# SAE1.01_ALGO
+# Projet 1 BUT
 ## Description :
 Application de gestion de stages étudiants
 ## Equipe :
