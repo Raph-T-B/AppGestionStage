@@ -1,5 +1,7 @@
 # SAE1.01_ALGO
-# Equipe :
+## Description :
+Application de gestion de stages étudiants
+## Equipe :
 -Gabin FERRANDON
 
 -Dorian LEDEMAZEL
