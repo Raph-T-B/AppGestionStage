@@ -8,4 +8,4 @@ Application de gestion de stages étudiants
 
 -Raphael CAUMOND
 ### Infos utile pour l'appli
-mdp du respo actuellement : 2345
+mdp actuel du respo : 2345
