@@ -7,3 +7,5 @@ Application de gestion de stages étudiants
 -Dorian LEDEMAZEL
 
 -Raphael CAUMOND
+### Infos utile pour l'appli
+mdp du respo actuellement : 2345
